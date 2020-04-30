@@ -5,6 +5,7 @@ class Cdashboard_Manager extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->model('M_akun');
 		
 		if ($this->session->userdata('logged_in')==null) {
 			redirect('Auth','refresh');
@@ -14,7 +15,8 @@ class Cdashboard_Manager extends CI_Controller {
 
 	public function index()
 	{
-		$this->tampil('dashboard_Manager');
+		$data['daftaradmin'] = $this->M_akun->get_all_admin();
+		$this->tampil('dashboard_Manager', $data);
 	}
 
 	private function accessrules($m, $t, $p, $f){
@@ -33,6 +35,9 @@ class Cdashboard_Manager extends CI_Controller {
 			redirect('Auth','refresh');
 		}
 }
+
+
+
 }
 
 /* End of file Cblank.php */

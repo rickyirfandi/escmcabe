@@ -33,6 +33,7 @@
                   + Tambahkan
                 </button>
               </div>
+
           <div class="modal fade" id="modal-lg">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
@@ -43,42 +44,27 @@
               </button>
             </div>
             <div class="modal-body">
-               <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="username" class="control-label">Username</label>
-                        <input type="text" class="form-control" id="username" name="username" placeholder="Username">
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <label for="status" class="control-label">Level</label>
-                    <select class="form-control" id="status" name="status">
-                        <option>Aktif</option>
-                        <option>Non-Aktif</option>
-                    </select>
-                </div>
-              </div>
               <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-12">
                     <div class="form-group">
-                        <label for="username" class="control-label">Username</label>
-                        <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+                        <label for="id_tpk" class="control-label">ID TPK</label>
+                        <input type="text" value="insert" hidden="hidden" name="set" id="set">
+                        <input type="text" class="form-control" name="id_tpk" id="id_tpk" placeholder="ID TPK" readonly="readonly">
                     </div>
                 </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                        <label for="password" class="control-label">Password</label>
-                        <input type="text" class="form-control" id="password" name="password" placeholder="Password">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="nip_tpk" class="control-label">NIP</label>
+                        <input type="text" class="form-control" id="nip_tpk" name="nip_tpk" placeholder="Nomer Induk Pegawai">
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <label for="status" class="control-label">Status</label>
-                    <select class="form-control" id="status" name="status">
-                        <option>Aktif</option>
-                        <option>Non-Aktif</option>
-                    </select>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="nama_tpk" class="control-label">Nama</label>
+                        <input type="text" class="form-control" id="nama_tpk" name="nama_tpk" placeholder="Nama">
+                    </div>
                 </div>
-              </div>
+            </div>
             </div>
             <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -105,7 +91,7 @@
                 <tbody>
                 <?php
                 $no = 1;
-                foreach ($daftaradmin as $data) {
+                foreach ($list as $data) {
                   ?>
                   <tr>
                     <td><?php echo $no++;?></td>
@@ -114,8 +100,8 @@
                     <td><?php echo $data->status ?></td>
                     <td><?php echo $data->level ?></td>
                     <td class="actions">
-                    <button type="button" class="btn btn-icon waves-effect waves-light btn-warning"> <i class="fas fa-edit"></i> </button>
-                   <button type="button" class="btn btn-icon waves-effect waves-light btn-danger"> <i class="fas fa-trash"></i> </button>
+                    <button type="button" class="btn btn-icon waves-effect waves-light btn-warning"> <i class="fa fa-pencil"></i> </button>
+                   <button type="button" class="btn btn-icon waves-effect waves-light btn-danger"> <i class="fa fa-trash"></i> </button>
                                                                   
                 </td>
             <?php } ?>
