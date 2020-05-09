@@ -22,14 +22,14 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-                  <div class="card">
+          <div class="card">
             <div class="card-header">
               <h3 class="card-title">Tambah Akun</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
               <div class="container-fluid col-sm-2">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-lg">
+                <button type="button" class="btn btn-primary text-right" data-toggle="modal" data-target="#modal-lg">
                   + Tambahkan
                 </button>
               </div>
@@ -42,23 +42,15 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
+             <form method="post" action="<?php echo site_url('Cdaftar_TPK/inupdelTPK') ?>">
             <div class="modal-body">
                <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="form-group">
-                        <label for="username" class="control-label">Username</label>
-                        <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+                        <label for="username" class="control-label">ID Akun</label>
+                        <input type="text" class="form-control" id="id_akun" name="id_akun" placeholder="ID Akun" readonly="readonly">
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <label for="status" class="control-label">Level</label>
-                    <select class="form-control" id="status" name="status">
-                        <option>Aktif</option>
-                        <option>Non-Aktif</option>
-                    </select>
-                </div>
-              </div>
-              <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="username" class="control-label">Username</label>
@@ -71,7 +63,21 @@
                         <input type="text" class="form-control" id="password" name="password" placeholder="Password">
                     </div>
                 </div>
-                <div class="col-md-4">
+              </div>
+                
+              <div class="row">
+                <div class="col-md-6">
+                    <label for="status" class="control-label">Level</label>
+                    <select class="form-control" id="level" name="level">
+                        <option>Manager</option>
+                        <option>Admin Produksi</option>
+                        <option>Admin Distrbusi</option>
+                        <option>Pasar</option>
+                        <option>Supplier</option>
+                    </select>
+                </div>
+              
+                <div class="col-md-6">
                     <label for="status" class="control-label">Status</label>
                     <select class="form-control" id="status" name="status">
                         <option>Aktif</option>
@@ -79,10 +85,13 @@
                     </select>
                 </div>
               </div>
+            
             </div>
-            <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
+            <div class="modal-footer text-right">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+              <button type="submit" class="btn btn-primary">Simpan</button>
+            
+              </form>
             </div>
           </div>
           <!-- /.modal-content -->
