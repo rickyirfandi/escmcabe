@@ -1,14 +1,15 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Akun extends CI_Controller {
+class Akun extends CI_Controller
+{
 
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->model('M_akun');
-		
-		if ($this->session->userdata('logged_in')==null) {
-			redirect('Auth','refresh');
+
+		if ($this->session->userdata('logged_in') == null) {
+			redirect('Auth', 'refresh');
 		}
 	}
 	public function index()
@@ -19,7 +20,7 @@ class Akun extends CI_Controller {
 	public function daftar_admin()
 	{
 		$data['daftaradmin'] = $this->M_akun->get_all_admin();
-		$this->tampil('manager/mgr_tambah_admin',$data);
+		$this->tampil('manager/mgr_tambah_admin', $data);
 	}
 
 	// public function inupdelTPK() {
