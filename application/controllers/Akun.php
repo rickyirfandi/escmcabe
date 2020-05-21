@@ -23,37 +23,48 @@ class Akun extends CI_Controller
 		$this->tampil('manager/mgr_tambah_admin', $data);
 	}
 
-	// public function inupdelTPK() {
-	// 	$data['set'] = $this->input->post('set');
-	// 	//$datapost['id_val'] = $this->input->post('id_val',true);
-	// 	$datapostlogin['username'] = $this->input->post('username',true);
-	// 	$datapostlogin['level'] = 'TPK';
-	// 	$datapostlogin['status'] = $this->input->post('status',true);
+	public function edit_akun(){
+		$id =  $this->uri->segment(3);
+		$data['daftaradmin'] = $this->M_akun->get_all_admin();
+		$data['admin_data'] = $this->M_akun->get_admin_by_id($id);
+		$data['action'] = "edit";
+		$this->tampil('manager/mgr_tambah_admin', $data);
+	}
 
-	// 	$datapost['nip_tpk'] = $this->input->post('nip_tpk',true);
-	// 	$datapost['nama_tpk'] = $this->input->post('nama_tpk',true);
-	// 	$datapost['hp_tpk'] = $this->input->post('hp_tpk',true);
-	// 	$datapost['wilayah_tpk'] = $this->input->post('wilayah_tpk',true);
-	// 	$password = $this->input->post('password',true);
-	// 	//$datapost['status'] = $this->input->post('status',true);
+	public function hapus_akun(){
+		$id =  $this->uri->segment(3);
+		$data['daftaradmin'] = $this->M_akun->get_all_admin();
+		$data['admin_data'] = $this->M_akun->get_admin_by_id($id);
+		$data['action'] = "delete";
+		$this->tampil('manager/mgr_tambah_admin', $data);
+	}
 
-	// 	if ($data['set']=='delete') {
-	// 		$id_akunhapus=$this->input->post('id_akunhapus',true);
-	// 		$this->Mdaftar_TPK->deleteTPK($id_akunhapus);
-	// 	}
-	// 	if ($data['set']=='update') {
-	// 		if ($password=='') {
-	// 			$datapostlgoin['password'] = null;
+	public function inupdelAdmin() {
+		$data['set'] = $this->input->post('set');
 
-	// 		}else{
-	// 			$datapostlogin['password'] = md5($password);
-	// 		}
-	// 		$this->MdaftarTPK->updateTPK($datapost);
-	// 	}
-	// 	if ($data['set']=='insert') {
-	// 		$datapostlogin['password'] = md5($password);
-	// 		$this->Mdaftar_TPK->insertTPK($datapost,$datapostlogin);
-	// 	}
-	// 	redirect('Cdaftar_TPK','refresh');
-	// }
+		$datapost['id_akun'] = $_POST['id_akun'];
+		$datapost['username'] = $_POST['username'];
+		$datapost['level'] = $_POST['level'];
+		$datapost['status'] = $_POST['status'];
+		$password = $_POST['password'];
+		//$datapost['status'] = $this->input->post('status',true);
+
+		if ($data['set']=='delete') {
+			//$this->Mdaftar_TPK->deleteTPK($datapost['id_akun']);
+		}
+		if ($data['set']=='update') {
+			if ($password=='') {
+				$datapost['password'] = null;
+			}else{
+				$datapost['password'] = md5($password);
+			}
+			$this->MdaftarTPK->updateTPK($datapost);
+		}
+		if ($data['set']=='insert') {
+			$datapost['password'] = md5($password);
+			$_POST['id_akun'] ="";
+			$this->M_akun->insert_admin($datapost);
+		}
+		redirect('Akun/daftar_admin','refresh');
+	}
 }

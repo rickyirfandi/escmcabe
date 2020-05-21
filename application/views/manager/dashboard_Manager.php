@@ -28,8 +28,8 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <div class="container-fluid col-sm-2">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-lg">
+              <div class="container-fluid col-sm-12 text-right">
+                <button type="button" class="btn btn-primary text-right" data-toggle="modal" data-target="#modal-lg">
                   + Tambahkan
                 </button>
               </div>

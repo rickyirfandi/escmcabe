@@ -30564,3 +30564,11 @@ a.text-muted:hover {
   color: #ffffff;
 }
 /*# sourceMappingURL=adminlte.css.map */
+
+.m-b-10 {
+  margin-bottom: 10 !important;
+}
+
+.m-t-10 {
+  margin-top: 10 !important;
+}

@@ -17,6 +17,29 @@ class M_akun extends CI_Model {
 		$hasil = $this->db->query($query)->result();
 		return $hasil; 
 	}
+
+	public function get_admin_by_id($id)
+	{
+		// $this->db->where('level', 'Validator');
+		// $query = $this->db->order_by('id_akun','DESC')->get('tbl_akun');
+		$query = "select id_akun, username, password, status, level from tbl_akun where id_akun='".$id."'";
+		$hasil = $this->db->query($query)->row_array();
+		return $hasil; 
+	}
+
+	public function insert_admin($data)
+	{
+		$this->db->insert('tbl_akun', $data);
+	}
+
+	public function delete_admin($id_akun)
+	{
+		// $this->db->delete('tbl_sales', array('id_sales' => $id_sales)); 
+		$data = array('status' => 'nonaktif' );
+		$this->db->where('id_akun', $id_akun);
+		$this->db->update('tbl_akun', $data);
+	}
+
 	// public function delete_admin($id_akun)
 	// {
 	// 	// $this->db->delete('tbl_sales', array('id_sales' => $id_sales)); 
