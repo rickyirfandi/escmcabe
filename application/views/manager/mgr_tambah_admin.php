@@ -150,7 +150,7 @@
     </div>
      <form method="post" action="<?php echo site_url('Akun/inupdelAdmin') ?>">
     <div class="modal-body">
-      <input type="hidden" id="set" name="set" value="edit" />
+      <input type="hidden" id="set" name="set" value="update" />
        <div class="row">
         <div class="col-md-4">
             <div class="form-group">

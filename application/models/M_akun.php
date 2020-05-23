@@ -27,6 +27,12 @@ class M_akun extends CI_Model {
 		return $hasil; 
 	}
 
+	public function update_admin($data)
+	{
+		$this->db->where('id_akun', $data['id_akun']);
+		$this->db->update('tbl_akun', $data);
+	}
+
 	public function insert_admin($data)
 	{
 		$this->db->insert('tbl_akun', $data);
@@ -34,10 +40,7 @@ class M_akun extends CI_Model {
 
 	public function delete_admin($id_akun)
 	{
-		// $this->db->delete('tbl_sales', array('id_sales' => $id_sales)); 
-		$data = array('status' => 'nonaktif' );
-		$this->db->where('id_akun', $id_akun);
-		$this->db->update('tbl_akun', $data);
+		return $this->db->delete('tbl_akun', array('id_akun' => $id_akun)); 
 	}
 
 	// public function delete_admin($id_akun)

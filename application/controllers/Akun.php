@@ -41,28 +41,29 @@ class Akun extends CI_Controller
 
 	public function inupdelAdmin() {
 		$data['set'] = $this->input->post('set');
-
-		$datapost['id_akun'] = $_POST['id_akun'];
 		$datapost['username'] = $_POST['username'];
 		$datapost['level'] = $_POST['level'];
 		$datapost['status'] = $_POST['status'];
 		$password = $_POST['password'];
 		//$datapost['status'] = $this->input->post('status',true);
 
-		if ($data['set']=='delete') {
-			//$this->Mdaftar_TPK->deleteTPK($datapost['id_akun']);
+		if ($data['set']=='delete') {	
+		$datapost['id_akun'] = $_POST['id_akun'];
+		$this->M_akun->delete_admin($datapost['id_akun']);
 		}
-		if ($data['set']=='update') {
+
+		if ($data['set']=='update') {	
+		$datapost['id_akun'] = $_POST['id_akun'];
 			if ($password=='') {
-				$datapost['password'] = null;
+				unset($datapost['password']);
 			}else{
 				$datapost['password'] = md5($password);
 			}
-			$this->MdaftarTPK->updateTPK($datapost);
+			$this->M_akun->update_admin($datapost);
 		}
+
 		if ($data['set']=='insert') {
 			$datapost['password'] = md5($password);
-			$_POST['id_akun'] ="";
 			$this->M_akun->insert_admin($datapost);
 		}
 		redirect('Akun/daftar_admin','refresh');
