@@ -23,6 +23,12 @@ class Akun extends CI_Controller
 		$this->tampil('manager/mgr_tambah_admin', $data);
 	}
 
+	public function admin_nonaktif()
+	{
+		$data['daftaradmin'] = $this->M_akun->get_admin_nonaktif();
+		$this->tampil('manager/mgr_admin_nonaktif', $data);
+	}
+
 	public function edit_akun(){
 		$id =  $this->uri->segment(3);
 		$data['daftaradmin'] = $this->M_akun->get_all_admin();

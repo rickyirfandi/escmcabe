@@ -25,12 +25,9 @@
       <div class="container-fluid">
           <div class="card">
             <div class="card-header">
-              <h2 class="card-title">Tambah Akun</h2>
+              <h2 class="card-title">Admin Non-Aktif</h2>
 
               <div class="container-fluid col-sm-12 text-right m-b-10">
-                <button type="button" class="btn btn-primary text-right m-b-10" data-toggle="modal" data-target="#modaladd">
-                  + Tambahkan Admin
-                </button>
               </div>
             </div>
             <!-- /.card-header -->
@@ -188,8 +185,8 @@
         <div class="col-md-6">
             <label for="status" class="control-label">Status</label>
             <select class="form-control" id="status" name="status">
-                <option <?php if($admin_data["status"] == "Aktif"){echo "selected";};?>>Aktif</option>
-                <option <?php if($admin_data["status"] == "Non-Aktif"){echo "selected";};?>>Non-Aktif</option>
+                <option>Aktif</option>
+                <option>Non-Aktif</option>
             </select>
         </div>
       </div>

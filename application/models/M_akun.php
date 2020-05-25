@@ -18,6 +18,15 @@ class M_akun extends CI_Model {
 		return $hasil; 
 	}
 
+	public function get_admin_nonaktif()
+	{
+		// $this->db->where('level', 'Validator');
+		// $query = $this->db->order_by('id_akun','DESC')->get('tbl_akun');
+		$query = "select id_akun, username, password, status, level from tbl_akun where status='Non-Aktif'";
+		$hasil = $this->db->query($query)->result();
+		return $hasil; 
+	}
+
 	public function get_admin_by_id($id)
 	{
 		// $this->db->where('level', 'Validator');
