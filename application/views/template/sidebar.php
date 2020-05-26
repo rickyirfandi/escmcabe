@@ -1,5 +1,8 @@
  <?php 
- $level = $this->session->userdata('level'); ?>
+ $level = $this->session->userdata('level');
+ $link1 = $this->uri->segment(1);
+ $link2 = $this->uri->segment(2);
+  ?>
 <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -28,15 +31,40 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <?php if ($level=='Manager'): ?>
-          <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link active">
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
               </p>
             </a>
           </li>
-         
+
+           <li class="nav-item has-treeview <?php 
+          if(($link1=="Pengiriman")){echo "menu-open";};?>">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Pengiriman
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?php echo site_url('Pengiriman/jadwal') ?>" class="nav-link <?php if($link1=="Pengiriman" && $link2=="jadwal"){echo "active";};?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Jadwal Pengiriman</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo site_url('Pengiriman/validasi') ?>" class="nav-link <?php if($link1=="Pengiriman" && $link2=="validasi"){echo "active";};?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Validasi Pengiriman</p>
+                </a>
+              </li>
+            </ul>
+          </li>  
+
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -84,7 +112,8 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item has-treeview">
+          <li class="nav-item has-treeview <?php 
+          if(($link1=="Akun")){echo "menu-open";};?>">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-table"></i>
               <p>
@@ -94,13 +123,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?php echo site_url('Akun/daftar_admin') ?>" class="nav-link">
+                <a href="<?php echo site_url('Akun/daftar_admin') ?>" class="nav-link <?php if($link2=="daftar_admin"){echo "active";};?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Daftar Admin Aktif</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?php echo site_url('Akun/admin_nonaktif') ?>" class="nav-link">
+                <a href="<?php echo site_url('Akun/admin_nonaktif') ?>" class="nav-link <?php if($link2=="admin_nonaktif"){echo "active";};?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Daftar Admin Tidak Aktif</p>
                 </a>

@@ -185,8 +185,8 @@
         <div class="col-md-6">
             <label for="status" class="control-label">Status</label>
             <select class="form-control" id="status" name="status">
-                <option>Aktif</option>
-                <option>Non-Aktif</option>
+            <option <?php if($admin_data["status"] == "Aktif"){echo "selected";};?>>Aktif</option>
+            <option <?php if($admin_data["status"] == "Non-Aktif"){echo "selected";};?>>Non-Aktif</option>
             </select>
         </div>
       </div>
@@ -257,8 +257,8 @@
         <div class="col-md-6">
             <label for="status" class="control-label">Status</label>
             <select class="form-control" id="status" name="status">
-                <option>Aktif</option>
-                <option>Non-Aktif</option>
+            <option <?php if($admin_data["status"] == "Aktif"){echo "selected";};?>>Aktif</option>
+                <option <?php if($admin_data["status"] == "Non-Aktif"){echo "selected";};?>>Non-Aktif</option>
             </select>
         </div>
       </div>

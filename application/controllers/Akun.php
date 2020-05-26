@@ -19,6 +19,7 @@ class Akun extends CI_Controller
 
 	public function daftar_admin()
 	{
+		$data['page'] = "daftar_admin_aktif";
 		$data['daftaradmin'] = $this->M_akun->get_all_admin();
 		$this->tampil('manager/mgr_tambah_admin', $data);
 	}
@@ -31,10 +32,16 @@ class Akun extends CI_Controller
 
 	public function edit_akun(){
 		$id =  $this->uri->segment(3);
-		$data['daftaradmin'] = $this->M_akun->get_all_admin();
 		$data['admin_data'] = $this->M_akun->get_admin_by_id($id);
 		$data['action'] = "edit";
-		$this->tampil('manager/mgr_tambah_admin', $data);
+		$status = $data['admin_data']["status"];
+		if($status=="Aktif"){
+			$data['daftaradmin'] = $this->M_akun->get_all_admin();
+			$this->tampil('manager/mgr_tambah_admin', $data);
+		} else {
+			$data['daftaradmin'] = $this->M_akun->get_admin_nonaktif();
+			$this->tampil('manager/mgr_admin_nonaktif', $data);
+		}
 	}
 
 	public function hapus_akun(){

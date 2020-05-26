@@ -4,18 +4,7 @@
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Dashboard</h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item"><a href="#">Akun Admin</a></li>
-              <li class="breadcrumb-item active">Daftar Admin</li>
-            </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
+
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
@@ -25,12 +14,13 @@
       <div class="container-fluid">
           <div class="card">
             <div class="card-header">
-              <h2 class="card-title">Tambah Akun</h2>
+            <div class="row">
+          <div class="col-sm-6">
+          <h1 class="card-title">Jadwal Pengiriman</h1>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
 
               <div class="container-fluid col-sm-12 text-right m-b-10">
-                <button type="button" class="btn btn-primary text-right m-b-10" data-toggle="modal" data-target="#modaladd">
-                  + Tambahkan Admin
-                </button>
               </div>
             </div>
             <!-- /.card-header -->
@@ -39,29 +29,24 @@
                 <thead>
                   <tr>
                   <th>No</th>
-                  <th>Id Akun</th>
-                  <th>Username</th>
+                  <th>Tanggal</th>
+                  <th>Tujuan</th>
+                  <th>Barang</th>
                   <th>Status</th>
-                  <th>Level</th>
-                  <th>Aksi</th>
                 </tr>
                  </thead>
                 <tbody>
                 <?php
                 $no = 1;
-                foreach ($daftaradmin as $data) {
+                foreach ($datapengiriman as $data) {
                   ?>
                   <tr>
                     <td><?php echo $no++;?></td>
-                    <td><?php echo $data->id_akun; ?></td>
-                    <td><?php echo $data->username; ?></td>
+                    <td><?php echo $data->tanggal; ?></td>
+                    <td><?php echo $data->tujuan ?></td>
+                    <td><?php echo $data->barang ?></td>
                     <td><?php echo $data->status ?></td>
-                    <td><?php echo $data->level ?></td>
-                    <td class="actions">
-                    <a href="<?php echo base_url('Akun/edit_akun/').$data->id_akun?>"><button type="button" class="btn btn-icon waves-effect waves-light btn-warning"> <i class="fas fa-edit"></i> </button></a>
-                    <a href="<?php echo base_url('Akun/hapus_akun/').$data->id_akun?>"><button type="button" class="btn btn-icon waves-effect waves-light btn-danger"> <i class="fas fa-trash"></i> </button></a>
-                                                                  
-                </td>
+
             <?php } ?>
             </tr>
                 </tbody>
@@ -188,8 +173,8 @@
         <div class="col-md-6">
             <label for="status" class="control-label">Status</label>
             <select class="form-control" id="status" name="status">
-                <option <?php if($admin_data["status"] == "Aktif"){echo "selected";};?>>Aktif</option>
-                <option <?php if($admin_data["status"] == "Non-Aktif"){echo "selected";};?>>Non-Aktif</option>
+            <option <?php if($admin_data["status"] == "Aktif"){echo "selected";};?>>Aktif</option>
+            <option <?php if($admin_data["status"] == "Non-Aktif"){echo "selected";};?>>Non-Aktif</option>
             </select>
         </div>
       </div>
@@ -261,7 +246,7 @@
             <label for="status" class="control-label">Status</label>
             <select class="form-control" id="status" name="status">
             <option <?php if($admin_data["status"] == "Aktif"){echo "selected";};?>>Aktif</option>
-            <option <?php if($admin_data["status"] == "Non-Aktif"){echo "selected";};?>>Non-Aktif</option>
+                <option <?php if($admin_data["status"] == "Non-Aktif"){echo "selected";};?>>Non-Aktif</option>
             </select>
         </div>
       </div>
