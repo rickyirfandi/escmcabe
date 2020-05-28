@@ -30,6 +30,24 @@ class M_pengiriman extends CI_Model {
 		return $hasil; 
     }
     
+    	public function get_pengiriman_by_id($id)
+	{
+		// $this->db->where('level', 'Validator');
+		// $query = $this->db->order_by('id_akun','DESC')->get('tbl_akun');
+		$query = "select * from tbl_pengiriman where id_pengiriman='".$id."'";
+		$hasil = $this->db->query($query)->row_array();
+		return $hasil; 
+	}
+	
+	public function validasi_pengiriman($id)
+	{
+		// $this->db->where('level', 'Validator');
+		// $query = $this->db->order_by('id_akun','DESC')->get('tbl_akun');
+		$query = "update tbl_pengiriman set status='Sudah Validasi' where id_pengiriman='".$id."'";
+		$hasil = $this->db->query($query)->result();
+		return $hasil; 
+    }
+    
 	// public function get_admin_nonaktif()
 	// {
 	// 	// $this->db->where('level', 'Validator');

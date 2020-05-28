@@ -26,4 +26,46 @@ class Pengiriman extends CI_Controller
         $data['datapengiriman'] = $this->M_pengiriman->get_jadwal_pengiriman_belum_validasi();
         $this->tampil('manager/view_validasi_pengiriman', $data);
     }
+
+    public function validasi_pengiriman(){
+        $id =  $this->uri->segment(3);
+        $data['action'] = "validasi";
+        $data['datapengiriman'] = $this->M_pengiriman->get_jadwal_pengiriman_belum_validasi();
+        $data['detailpengiriman'] = $this->M_pengiriman->get_pengiriman_by_id($id);
+        $this->tampil('manager/view_validasi_pengiriman', $data);
+    }
+
+    public function inupdelPengiriman() {
+		$data['set'] = $this->input->post('set');
+		$datapost['id_pengiriman'] = $_POST['id_pengiriman'];
+		$datapost['tanggal'] = $_POST['tanggal'];
+		$datapost['tujuan'] = $_POST['tujuan'];
+		$datapost['barang'] = $_POST['barang'];
+
+        if ($data['set']=='validasi') {	
+            $this->M_pengiriman->validasi_pengiriman($datapost['id_pengiriman']);
+            redirect('Pengiriman/validasi','refresh');
+            }
+
+		if ($data['set']=='delete') {	
+		$datapost['id_akun'] = $_POST['id_akun'];
+		$this->M_akun->delete_admin($datapost['id_akun']);
+		}
+
+		if ($data['set']=='update') {	
+		$datapost['id_akun'] = $_POST['id_akun'];
+			if ($password=='') {
+				unset($datapost['password']);
+			}else{
+				$datapost['password'] = md5($password);
+			}
+			$this->M_akun->update_admin($datapost);
+		}
+
+		if ($data['set']=='insert') {
+			$datapost['password'] = md5($password);
+			$this->M_akun->insert_admin($datapost);
+		}
+		redirect('Akun/daftar_admin','refresh');
+	}
 }
