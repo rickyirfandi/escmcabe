@@ -5,12 +5,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Dashboard</h1>
+            <h1 class="m-0 text-dark">Keranjang</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard Pasar</li>
+              <li class="breadcrumb-item active">DKeranjang</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -22,50 +22,12 @@
     <section class="content">
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
-        <div class="row">
-          <div class="col-lg-6 col-6">
-            <!-- small box -->
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h3>5</h3>
-
-                <p>Penawaran Tersedia</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-bag"></i>
-              </div>
-              <a href="#" class="small-box-footer">Lihat Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-
-          <!-- ./col -->
-          <div class="col-lg-6 col-6">
-            <!-- small box -->
-            <div class="small-box bg-warning">
-              <div class="inner">
-                <h3>3</h3>
-
-                <p>Barang Terkirim</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-person-add"></i>
-              </div>
-              <a href="#" class="small-box-footer">Lihat Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <!-- ./col -->
-        </div>
         <!-- /.row -->
         <!-- Main row -->
         <div class="container-fluid">
           <div class="card">
             <div class="card-header">
-            <div class="row">
-          <div class="col-sm-6">
-          <h1 class="card-title">Penawaran Tersedia</h1>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
+ 
 
               <div class="container-fluid col-sm-12 text-right m-b-10">
               </div>
@@ -79,16 +41,18 @@
                   <th>Produk</th>
                   <th>Jumlah</th>
                   <th>Harga</th>
-                  <th>Terima Penawaran</th>
+                  <th>Aksi</th>
                 </tr>
                  </thead>
                 <tbody>
                   <tr>
                     <td>1. </td>
                     <td>Cabe Keriting yg Direbonding KW super </td>
-                    <td>5 Gram </td>
-                    <td>Rp. 5 Milyar </td>
-                    <td><a href="<?php echo base_url('supplier/penawaran')?>"><button type="button" class="btn btn-icon waves-effect waves-light btn-success"> <i class="fas fa-check"></i> &nbsp Terima Penawaran</button></a></td>
+                    <td>10 Kg</td>
+                    <td>Rp. 150.000</td>
+                    <td><a href="<?php echo base_url().'pasar/product'?>"><button type="button" class="btn btn-icon waves-effect waves-light btn-primary"> <i class="fas fa-edit"></i> Edit</button></a>
+                    <a href="#"><button type="button" class="btn btn-icon waves-effect waves-light btn-danger"> <i class="fas fa-times"></i> Hapus</button></a>
+                    </td>
                   </tr>
                 </tbody>
               
@@ -97,6 +61,10 @@
       </div>
         <!-- /.row (main row) -->
       </div><!-- /.container-fluid -->
+      <div class="card">
+            <div class="card-header">
+            <button type="button" class="btn btn-icon waves-effect waves-light btn-success btn-block"> <i class="fas fa-shopping-basket"></i> &nbsp Kirim Permintaan</button>
+            </div></div>
     </section>
     
     <!-- /.content -->

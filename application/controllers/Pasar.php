@@ -1,6 +1,6 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Supplier extends CI_Controller
+class Pasar extends CI_Controller
 {
 
 	public function __construct()
@@ -14,16 +14,23 @@ class Supplier extends CI_Controller
 
 	public function index()
 	{
-		$this->tampil('dashboard_Supplier');
+		$this->tampil('dashboard_Pasar');
 	}
 
-	public function penawaran()
-	{
-		$this->tampil('supplier/view_penawaran');
+	public function product(){
+		$this->tampil('pasar/view_produk_detail');
+	}
+
+	public function keranjang(){
+		$this->tampil('pasar/view_keranjang');
+	}
+
+	public function riwayat(){
+		$this->tampil('pasar/view_riwayat');
 	}
 
 	public function pengiriman(){
-		$this->tampil('supplier/view_pengiriman');
+		$this->tampil('pasar/view_pengiriman');
 	}
 
 	private function accessrules($m, $t, $p, $f)
@@ -38,7 +45,7 @@ class Supplier extends CI_Controller
 	// public function _remap($method, $params)
 	// {
 	// 	$level = $this->session->userdata('level');
-	// 	if ($level == 'Supplier') {
+	// 	if ($level == 'Pasar') {
 	// 		return $this->accessrules($method, $this, $params, array('index'));
 	// 	} else {
 	// 		redirect('Auth', 'refresh');

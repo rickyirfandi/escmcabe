@@ -23,16 +23,16 @@ class Pengiriman extends CI_Controller
     }
 
     public function validasi(){
-        $data['datapengiriman'] = $this->M_pengiriman->get_jadwal_pengiriman_belum_validasi();
-        $this->tampil('manager/view_validasi_pengiriman', $data);
+        //$data['datapengiriman'] = $this->M_pengiriman->get_jadwal_pengiriman_belum_validasi();
+        $this->tampil('manager/view_validasi_pengiriman');
     }
 
     public function validasi_pengiriman(){
-        $id =  $this->uri->segment(3);
-        $data['action'] = "validasi";
-        $data['datapengiriman'] = $this->M_pengiriman->get_jadwal_pengiriman_belum_validasi();
-        $data['detailpengiriman'] = $this->M_pengiriman->get_pengiriman_by_id($id);
-        $this->tampil('manager/view_validasi_pengiriman', $data);
+        //$id =  $this->uri->segment(3);
+        //$data['action'] = "validasi";
+        //$data['datapengiriman'] = $this->M_pengiriman->get_jadwal_pengiriman_belum_validasi();
+        //$data['detailpengiriman'] = $this->M_pengiriman->get_pengiriman_by_id($id);
+        $this->tampil('manager/view_validasi_pengiriman');
     }
 
     public function inupdelPengiriman() {

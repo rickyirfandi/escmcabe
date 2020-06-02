@@ -10,7 +10,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">User Profile</li>
+              <li class="breadcrumb-item active">Profile</li>
             </ol>
           </div>
         </div>
@@ -34,17 +34,13 @@
 
                 <h3 class="profile-username text-center">NAMA</h3>
 
-                <p class="text-muted text-center">KTP</p>
-
                 <ul class="list-group list-group-unbordered mb-3">
-                  <li class="list-group-item">
-                    <b>Tanggal Daftar</b> <a class="float-right">5 April 2020</a>
-                  </li>
+
                   <li class="list-group-item">
                     <b>Jenis Akun</b> <a class="float-right">Supplier</a>
                   </li>
                   <li class="list-group-item">
-                    <b>Lokasi</b> <a class="float-right">Bondowoso</a>
+                    <b>Status</b> <a class="float-right">Aktif</a>
                   </li>
                 </ul>
 
@@ -60,11 +56,7 @@
           <!-- /.col -->
           <div class="col-md-9">
             <div class="card">
-              <div class="card-header p-2">
-                <ul class="nav nav-pills">
-                  <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab">Settings</a></li>
-                </ul>
-              </div><!-- /.card-header -->
+
               <div class="card-body">
                 <div class="tab-content">
                 
@@ -75,31 +67,31 @@
                       <div class="form-group row">
                         <label for="inputName" class="col-sm-2 col-form-label">Nama</label>
                         <div class="col-sm-10">
-                          <input type="email" class="form-control" id="inputName" placeholder="Nama">
+                          <input type="text" class="form-control" id="inputName" placeholder="Nama">
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                        <label for="inputEmail" class="col-sm-2 col-form-label">Username</label>
                         <div class="col-sm-10">
-                          <input type="email" class="form-control" id="inputEmail" placeholder="Email">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="inputName2" class="col-sm-2 col-form-label">Username</label>
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputName2" placeholder="Username">
+                          <input type="text" class="form-control" id="inputUsername" placeholder="Username">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputExperience" class="col-sm-2 col-form-label">Password</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputName2" placeholder="Password">
+                          <input type="password" class="form-control" id="inputPassword" placeholder="Password">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputSkills" class="col-sm-2 col-form-label">Telepon</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputSkills" placeholder="Telepon">
+                          <input type="text" class="form-control" id="inputTelepon" placeholder="Telepon">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="inputName2" class="col-sm-2 col-form-label">Alamat</label>
+                        <div class="col-sm-10">
+                          <textarea id="inputAlamat" class="form-control" name="w3review" rows="4" cols="50" placeholder="Alamat"></textarea>
                         </div>
                       </div>
                       <div class="form-group row">
@@ -111,7 +103,7 @@
                       </div>
                       <div class="form-group row">
                         <div class="offset-sm-2 col-sm-10">
-                          <button type="submit" class="btn btn-danger">Ubah</button>
+                          <button type="submit" class="btn btn-danger btn-block">Simpan Perubahan</button>
                         </div>
                       </div>
                     </form>

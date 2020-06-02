@@ -32,7 +32,7 @@
                with font-awesome or any other icon font library -->
           <?php if ($level=='Manager'): ?>
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="<?php echo site_url('Manager') ?>" class="nav-link <?php if(($link1=="Manager") and ($link2=="")){echo "active";};?>">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -41,15 +41,21 @@
           </li>
 
            <li class="nav-item has-treeview <?php 
-          if(($link1=="Pengiriman")){echo "menu-open";};?>">
+          if(($link1=="Pengiriman") or ($link1=="Permintaan")){echo "menu-open";};?>">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
-                Pengiriman
+                Transaksi
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
+            <li class="nav-item">
+                <a href="<?php echo site_url('Permintaan') ?>" class="nav-link <?php if($link1=="Permintaan"){echo "active";};?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Permintaan Masuk</p>
+                </a>
+              </li>
               <li class="nav-item">
                 <a href="<?php echo site_url('Pengiriman/jadwal') ?>" class="nav-link <?php if($link1=="Pengiriman" && $link2=="jadwal"){echo "active";};?>">
                   <i class="far fa-circle nav-icon"></i>
@@ -65,49 +71,26 @@
             </ul>
           </li>  
 
-          <li class="nav-item has-treeview">
+          <li class="nav-item has-treeview <?php 
+          if(($link1=="Laporan")){echo "menu-open";};?>">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
                 Laporan
                 <i class="fas fa-angle-left right"></i>
-                <span class="badge badge-info right">6</span>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/layout/top-nav.html" class="nav-link">
+                <a href="<?php echo site_url('Laporan') ?>" class="nav-link <?php if($link1=="Laporan" && $link2==""){echo "active";};?>">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Top Navigation</p>
+                  <p>Data Laporan</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                <a href="<?php echo site_url('Laporan/Validasi') ?>" class="nav-link <?php if($link1=="Laporan" && $link2=="Validasi"){echo "active";};?>">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Top Navigation + Sidebar</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-edit"></i>
-              <p>
-                Validasi
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/forms/general.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>General Elements</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/forms/advanced.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Advanced Elements</p>
+                  <p>Validasi Laporan</p>
                 </a>
               </li>
             </ul>
@@ -302,8 +285,8 @@
            <?php endif ?>
 
            <?php if ($level=='Pasar'): ?>
-          <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link active">
+          <li class="nav-item has-treeview <?php if($link2==""){echo "menu-open";};?>">
+            <a href="<?php echo base_url().'pasar/'?>" class="nav-link <?php if($link2==""){echo "active";};?>">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -311,81 +294,42 @@
             </a>
           </li>
          
-          <li class="nav-item has-treeview">
+          <li class="nav-item has-treeview <?php 
+          if(($link2=="keranjang") or ($link2=="pengiriman") or ($link2=="riwayat")){echo "menu-open";};?>">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
+              <i class="nav-icon fas fa-shopping-bag"></i>
               <p>
-                Produk
-                <i class="fas fa-angle-left right"></i>
-                <span class="badge badge-info right">6</span>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/layout/top-nav.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Beli Produk</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Riwayat Pembelian</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-edit"></i>
-              <p>
-              Pengiriman
+                Transaksi
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/forms/general.html" class="nav-link">
+                <a href="<?php echo base_url().'pasar/keranjang'?>" class="nav-link <?php if($link2=="keranjang"){echo "active";};?>">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Status Pengiriman</p>
+                  <p>Keranjang</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/forms/advanced.html" class="nav-link">
+                <a href="<?php echo base_url().'pasar/pengiriman'?>" class="nav-link <?php if($link2=="pengiriman"){echo "active";};?>">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>xx</p>
+                  <p>Pengiriman</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?php echo base_url().'pasar/riwayat'?>" class="nav-link <?php if($link2=="riwayat"){echo "active";};?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Riwayat Transaksi</p>
                 </a>
               </li>
             </ul>
           </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-table"></i>
-              <p>
-               Keuangan
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/tables/simple.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Lihat Grafik</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/tables/data.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>DataTables</p>
-                </a>
-              </li>
-            </ul>
-          </li>
+
            <?php endif ?>
 
            <?php if ($level=='Supplier'): ?>
-          <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link active">
+          <li class="nav-item has-treeview <?php if($link2==""){echo "menu-open";};?>">
+            <a href="<?php echo base_url().'supplier'?>" class="nav-link <?php if($link2==""){echo "active";};?>">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -393,53 +337,15 @@
             </a>
           </li>
          
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
+          <li class="nav-item has-treeview <?php if($link2=="pengiriman"){echo "menu-open";};?>">
+            <a href="<?php echo base_url().'supplier/pengiriman'?>" class="nav-link <?php if($link2=="pengiriman"){echo "active";};?>">
+              <i class="nav-icon fas fa-paper-plane"></i>
               <p>
-                Produk
-                <i class="fas fa-angle-left right"></i>
-                <span class="badge badge-info right">6</span>
+                Pengiriman
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/layout/top-nav.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Tambah Produk</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Grafik Penjualan</p>
-                </a>
-              </li>
-            </ul>
           </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-edit"></i>
-              <p>
-               Permintaan 
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/forms/general.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Lihat Permintaan</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/forms/advanced.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Riwayat Permintaan</p>
-                </a>
-              </li>
-            </ul>
-          </li>
+
           
            <?php endif ?>
           </ul>

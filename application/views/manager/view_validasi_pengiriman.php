@@ -31,26 +31,18 @@
                   <th>No</th>
                   <th>Tanggal</th>
                   <th>Tujuan</th>
-                  <th>Barang</th>
                   <th>Validasi</th>
                 </tr>
                  </thead>
                 <tbody>
-                <?php
-                $no = 1;
-                foreach ($datapengiriman as $data) {
-                  ?>
                   <tr>
-                    <td><?php echo $no++;?></td>
-                    <td><?php echo $data->tanggal; ?></td>
-                    <td><?php echo $data->tujuan ?></td>
-                    <td><?php echo $data->barang ?></td>
+                    <td>1</td>
+                    <td>1 Juni 2020</td>
+                    <td>Pasar Senin Aja</td>
                     <td class="actions">
-                    <a href="<?php echo base_url('Pengiriman/Validasi_pengiriman/').$data->id_pengiriman?>"><button type="button" class="btn btn-icon waves-effect waves-light btn-success"> <i class="fas fa-check-square"></i> &nbsp Validasi</button></a>
+                    <a href="<?php echo base_url('Pengiriman/Validasi_pengiriman/')?>"><button type="button" class="btn btn-icon waves-effect waves-light btn-success"> <i class="fas fa-check-square"></i> &nbsp Validasi</button></a>
                     <a href="<?php echo base_url('#')?>"><button type="button" class="btn btn-icon waves-effect waves-light btn-danger"> <i class="fas fa-window-close"></i> &nbsp Tolak</button></a>                                      
                 </td>
-
-            <?php } ?>
             </tr>
                 </tbody>
               

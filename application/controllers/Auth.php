@@ -16,7 +16,7 @@ class Auth extends CI_Controller
 		// $data['masa_beasiswa'] = $this->M_beasiswa->getmasabeasiswa();
 		if ($this->session->userdata('username')) {
 			if ($this->session->userdata('level') == "Manager") {
-				redirect('Cdashboard_Manager');
+				redirect('Manager');
 			}
 			if ($this->session->userdata('level') == "Admin Produksi") {
 				redirect('Cdashboard_AdminProduksi');
@@ -25,10 +25,10 @@ class Auth extends CI_Controller
 				redirect('Cdashboard_AdminDistribusi');
 			}
 			if ($this->session->userdata('level') == "Pasar") {
-				redirect('Cdashboard_Pasar');
+				redirect('Pasar');
 			}
 			if ($this->session->userdata('level') == "Supplier") {
-				redirect('Cdashboard_Supplier');
+				redirect('Supplier');
 			}
 		} else {
 			$this->load->view('login');
@@ -53,15 +53,15 @@ class Auth extends CI_Controller
 		if ($cek > 0) {
 			$result = $this->M_login->getLoginData($username, md5($password));
 			if ($this->session->userdata('level') == "Manager") {
-				redirect('Cdashboard_Manager');
+				redirect('Manager');
 			} else if ($this->session->userdata('level') == "Admin Produksi") {
 				redirect('Cdashboard_AdminProduksi');
 			} else if ($this->session->userdata('level') == "Admin Distribusi") {
 				redirect('Cdashboard_AdminDistribusi');
 			} else if ($this->session->userdata('level') == "Pasar") {
-				redirect('Cdashboard_Pasar');
+				redirect('Pasar');
 			} else if ($this->session->userdata('level') == "Supplier") {
-				redirect('Cdashboard_Supplier');
+				redirect('Supplier');
 			}
 		} else {
 			$this->session->error = true;
