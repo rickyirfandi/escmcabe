@@ -19,7 +19,7 @@ class Auth extends CI_Controller
 				redirect('Manager');
 			}
 			if ($this->session->userdata('level') == "Admin Produksi") {
-				redirect('Cdashboard_AdminProduksi');
+				redirect('AdminProduksi');
 			}
 			if ($this->session->userdata('level') == "Admin Distribusi") {
 				redirect('Cdashboard_AdminDistribusi');
@@ -55,7 +55,7 @@ class Auth extends CI_Controller
 			if ($this->session->userdata('level') == "Manager") {
 				redirect('Manager');
 			} else if ($this->session->userdata('level') == "Admin Produksi") {
-				redirect('Cdashboard_AdminProduksi');
+				redirect('AdminProduksi');
 			} else if ($this->session->userdata('level') == "Admin Distribusi") {
 				redirect('Cdashboard_AdminDistribusi');
 			} else if ($this->session->userdata('level') == "Pasar") {

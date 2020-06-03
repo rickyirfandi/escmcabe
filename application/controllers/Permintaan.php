@@ -22,4 +22,12 @@ class Permintaan extends CI_Controller
 	{
         $this->tampil('manager/view_detail_permintaan');
     }
+    public function tervalidasi()
+	{
+        $this->tampil('adminProduksi/view_permintaan');
+    }
+    public function riwayat()
+	{
+        $this->tampil('adminProduksi/view_riwayat_permintaan');
+    }
 }

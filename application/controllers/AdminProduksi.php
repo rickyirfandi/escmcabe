@@ -1,6 +1,6 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Cdashboard_AdminProduksi extends CI_Controller
+class AdminProduksi extends CI_Controller
 {
 
 	public function __construct()

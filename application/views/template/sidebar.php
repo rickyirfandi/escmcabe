@@ -122,8 +122,9 @@
            <?php endif ?>
 
             <?php if ($level=='Admin Produksi'): ?>
-          <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link active">
+          <li class="nav-item has-treeview <?php 
+          if(($link1=="AdminProduksi")){echo "menu-open";};?>">
+            <a href="<?php echo site_url() ?>" class="nav-link <?php if($link1=="AdminProduksi" && $link2==""){echo "active";};?>">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -131,33 +132,34 @@
             </a>
           </li>
          
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+          <li class="nav-item has-treeview <?php 
+          if(($link1=="produk")){echo "menu-open";};?>">
+            <a href="" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
                 Produk
                 <i class="fas fa-angle-left right"></i>
-                <span class="badge badge-info right">6</span>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?php echo site_url() ?>" class="nav-link">
+                <a href="<?php echo site_url().'produk/tambah' ?>" class="nav-link <?php if($link1=="produk" && $link2=="tambah"){echo "active";};?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tambah Produk</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                <a href="<?php echo site_url().'produk' ?>"class="nav-link <?php if($link1=="produk" && $link2==""){echo "active";};?>">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Stok Produk</p>
+                  <p>Produk</p>
                 </a>
               </li>
             </ul>
           </li>
-          <li class="nav-item has-treeview">
+          <li class="nav-item has-treeview <?php 
+          if(($link1=="permintaan")){echo "menu-open";};?>">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-edit"></i>
+              <i class="nav-icon fas fa-box"></i>
               <p>
                Permintaan 
                 <i class="fas fa-angle-left right"></i>
@@ -165,41 +167,50 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/forms/general.html" class="nav-link">
+                <a href="<?php echo site_url().'permintaan/tervalidasi' ?>" class="nav-link <?php if($link1=="permintaan" && $link2=="tervalidasi"){echo "active";};?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Lihat Permintaan</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/forms/advanced.html" class="nav-link">
+                <a href="<?php echo site_url().'permintaan/riwayat' ?>" class="nav-link <?php if($link1=="permintaan" && $link2=="riwayat"){echo "active";};?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Riwayat Permintaan</p>
                 </a>
               </li>
             </ul>
           </li>
-          <li class="nav-item has-treeview">
+          <li class="nav-item has-treeview <?php 
+          if(($link1=="penawaran")){echo "menu-open";};?>">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-table"></i>
+              <i class="nav-icon fas fa-edit"></i>
               <p>
-               Grafik Produksi
+               Penawaran
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/tables/simple.html" class="nav-link">
+                <a href="<?php echo site_url().'penawaran/buat' ?>" class="nav-link <?php if($link1=="penawaran" && $link2=="buat"){echo "active";};?>">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Lihat Grafik</p>
+                  <p>Buat Penawaran</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/tables/data.html" class="nav-link">
+                <a href="<?php echo site_url().'penawaran/riwayat' ?>" class="nav-link <?php if($link1=="penawaran" && $link2=="riwayat"){echo "active";};?>">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>DataTables</p>
+                  <p>Riwayat Penawaran</p>
                 </a>
               </li>
             </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="<?php echo site_url().'gudang' ?>" class="nav-link <?php if($link1=="gudang" && $link2==""){echo "active";};?>">
+              <i class="nav-icon fas fa-warehouse"></i>
+              <p>
+                Stok Gudang
+              </p>
+            </a>
           </li>
            <?php endif ?>
            <?php if ($level=='Admin Distribusi'): ?>
