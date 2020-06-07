@@ -25,11 +25,12 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-            <form>
+            <form method="post" action="<?php echo site_url('produk/update') ?>">
             <div class="form-group row">
                 <label for="staticEmail" class="col-sm-2 col-form-label">Nama Produk </label>
                 <div class="col-sm-10">
-                <input type="text" class="form-control" id="staticEmail">
+                <input required type="text" class="form-control" name="nama_produk" value="<?php echo $produk->nama_produk; ?>">
+                <input required type="text" hidden class="form-control" name="id_produk" value="<?php echo $produk->id_produk; ?>">
                 </div>
             </div>
 

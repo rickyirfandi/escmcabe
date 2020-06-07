@@ -25,21 +25,21 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-            <form>
+            <form method="post" action="<?php echo site_url('pasar/tambahKeranjang/'.$produk->id_produk) ?>">
             <div class="form-group row">
                 <label for="staticEmail" class="col-sm-2 col-form-label">Produk </label>
                 <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="Cabe Keriting yg Direbonding KW super">
+                <input type="text" readonly class="form-control-plaintext" name="nama_produk" value="<?php echo $produk->nama_produk ?>">
                 </div>
             </div>
             <div class="form-group row">
-                <label for="inputPassword" class="col-sm-2 col-form-label">Harga Penawaran</label>
+                <label class="col-sm-2 col-form-label">Harga Penawaran</label>
                 <div class="col-sm-10">
                 <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">Rp.</span>
                 </div>
-                <input type="text" class="form-control" placeholder="Harga" aria-label="Username" aria-describedby="basic-addon1">
+                <input type="text" class="form-control" placeholder="Harga" name="harga" aria-describedby="basic-addon1">
                 </div>
                 </div>
             </div>
@@ -48,7 +48,7 @@
                 <label for="inputPassword" class="col-sm-2 col-form-label">Jumlah Permintaan</label>
                 <div class="col-sm-10">
                 <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Berat" aria-label="Username" aria-describedby="basic-addon1">
+                <input type="text" class="form-control" placeholder="Berat" name="berat" aria-describedby="basic-addon1">
                 <div class="input-group-append">
                     <span class="input-group-text">Kg</span>
                 </div>

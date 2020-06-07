@@ -83,13 +83,18 @@
                 </tr>
                  </thead>
                 <tbody>
+                <?php 
+                $no = 1;
+                foreach($penawaran as $data){
+                ?>
                   <tr>
-                    <td>1. </td>
-                    <td>Cabe Keriting yg Direbonding KW super </td>
-                    <td>5 Gram </td>
-                    <td>Rp. 5 Milyar </td>
-                    <td><a href="<?php echo base_url('supplier/penawaran')?>"><button type="button" class="btn btn-icon waves-effect waves-light btn-success"> <i class="fas fa-check"></i> &nbsp Terima Penawaran</button></a></td>
+                    <td><?php echo $no++; ?> </td>
+                    <td><?php echo $data->nama_produk; ?></td>
+                    <td><?php echo $data->berat; ?> Kg </td>
+                    <td>Rp. <?php echo $data->harga; ?> </td>
+                    <td><a href="<?php echo base_url('supplier/penawaran/'.$data->id_produksi)?>"><button type="button" class="btn btn-icon waves-effect waves-light btn-success"> <i class="fas fa-check"></i> &nbsp Terima Penawaran</button></a></td>
                   </tr>
+                <?php } ?>
                 </tbody>
               
               </table>

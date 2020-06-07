@@ -6,7 +6,8 @@ class AdminProduksi extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-
+		$this->load->model('M_permintaan');
+		
 		if ($this->session->userdata('logged_in') == null) {
 			redirect('Auth', 'refresh');
 		}
@@ -14,7 +15,8 @@ class AdminProduksi extends CI_Controller
 
 	public function index()
 	{
-		$this->tampil('dashboard_AdminProduksi');
+		$data['permintaan'] = $this->M_permintaan->getPermintaanDiproses();
+		$this->tampil('dashboard_AdminProduksi', $data);
 	}
 
 	private function accessrules($m, $t, $p, $f)

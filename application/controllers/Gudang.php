@@ -10,10 +10,14 @@ class Gudang extends CI_Controller
 		if ($this->session->userdata('logged_in') == null) {
 			redirect('Auth', 'refresh');
 		}
+		$this->load->model('M_supply');
     }
     
 	public function index()
 	{
-        $this->tampil('adminProduksi/view_gudang');
-    }
+		$data['gudang'] = $this->M_supply->getBeratPerGudang('1');
+        $this->tampil('adminProduksi/view_gudang', $data);
+	}
+	
+
 }

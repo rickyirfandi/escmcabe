@@ -10,20 +10,32 @@ class Supplier extends CI_Controller
 		if ($this->session->userdata('logged_in') == null) {
 			redirect('Auth', 'refresh');
 		}
+		$this->load->model('M_supply');
 	}
 
 	public function index()
 	{
-		$this->tampil('dashboard_Supplier');
+		$data['penawaran'] = $this->M_supply->getAllPenawaran();
+		$this->tampil('dashboard_Supplier', $data);
 	}
 
-	public function penawaran()
+	public function penawaran($id)
 	{
-		$this->tampil('supplier/view_penawaran');
+		$data['penawaran'] = $this->M_supply->getPenawaranById($id);
+		$this->tampil('supplier/view_penawaran', $data);
+	}
+
+	public function kirimPenawaran(){
+		$id = $this->input->post('id_produksi', true);
+		$data['status_p'] = 1;
+		$data['id_supplier'] = $this->session->userdata('id_akun');
+		$this->M_supply->update($id, $data);
+		redirect('supplier');
 	}
 
 	public function pengiriman(){
-		$this->tampil('supplier/view_pengiriman');
+		$data['riwayat'] = $this->M_supply->getRiwayatPengiriman();
+		$this->tampil('supplier/view_pengiriman', $data);
 	}
 
 	private function accessrules($m, $t, $p, $f)

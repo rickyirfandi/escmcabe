@@ -45,15 +45,22 @@
                 </tr>
                  </thead>
                 <tbody>
+                <?php 
+                $no = 1;
+                foreach($penawaran as $data){
+                ?>
                   <tr>
-                    <td>1. </td>
-                    <td>Cabe Keriting yg Direbonding KW super </td>
-                    <td>10 Kg</td>
-                    <td>Rp. 150.000</td>
-                    <td><a href="<?php echo base_url().'penawaran/edit'?>"><button type="button" class="btn btn-icon waves-effect waves-light btn-primary"> <i class="fas fa-edit"></i> Edit</button></a>
-                    <a href="#"><button type="button" class="btn btn-icon waves-effect waves-light btn-danger"> <i class="fas fa-times"></i> Hapus</button></a>
+                    <td><?php echo $no++; ?></td>
+                    <td><?php echo $data->nama_produk; ?></td>
+                    <form method="post" action="<?php echo site_url('penawaran/updateRiwayat/'.$data->id_produksi) ?>">
+                    <td><input type="number" class="form-control" name="berat" value="<?php echo $data->berat; ?>" required> Kg</td>
+                    <td>Rp. <input type="number" class="form-control" name="harga" value="<?php echo $data->harga; ?>" required></td>
+                    <td><button type="submit" name="update" class="btn btn-icon waves-effect waves-light btn-primary"> <i class="fas fa-save"></i> Save</button>
+                    <button type="submit" name="delete" class="btn btn-icon waves-effect waves-light btn-danger"> <i class="fas fa-times"></i> Hapus</button>
                     </td>
                   </tr>
+                  </form>
+                <?php } ?>
                 </tbody>
               
               </table>

@@ -71,25 +71,27 @@ class Auth extends CI_Controller
 	public function profile()
 	{
 		$id_akun = $this->session->userdata('id_akun');
-		$data = $this->M_aset->getdataakun($id_akun);
-		$data['arraystatus'] = array(
-			'1' => 'Aktif',
-			'0' => 'Non aktif'
-		);
+		$data['akun'] = $this->M_aset->getdataakun($id_akun);
+		// $data['arraystatus'] = array(
+		// 	'1' => 'Aktif',
+		// 	'0' => 'Non aktif'
+		// );
 		$this->tampil('user/profile', $data);
 	}
 	public function updateprofil()
 	{
-		$data['id_akun'] = $this->input->post('id_akun', true);
+		$id = $this->session->userdata('id_akun');
+		$data['nama'] = $this->input->post('nama', true);
 		$data['username'] = $this->input->post('username', true);
-		$data['status'] = $this->input->post('status', true);
+		$data['alamat'] = $this->input->post('alamat', true);
+		$data['no_hp'] = $this->input->post('no_hp', true);
 		$password = $this->input->post('password', true);
 		if ($password == '') {
 			$data['password'] = null;
 		} else {
 			$data['password'] = md5($password);
 		}
-		if ($this->M_aset->updateakunpendaftar($data, 'tbl_akun')) {
+		if ($this->M_aset->updateakunpendaftar($data, $id)) {
 			$this->session->set_flashdata('succesinsert', 'berhasil update data');
 		} else {
 			$this->session->set_flashdata('failinsert', 'gagal update data');

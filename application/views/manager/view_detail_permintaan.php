@@ -1,4 +1,16 @@
-
+<?php 
+$code = $permintaan[0]->status_per;
+$status = "";
+if($code == "1"){
+  $status = "Menunggu Validasi";
+}
+if($code == "2"){
+  $status = "Sedang Diproses";
+}
+if($code == "1"){
+  $status = "Ditolak";
+}
+?>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -25,11 +37,11 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-            <form>
+            <form method="POST" action="<?php echo base_url().'permintaan/validate/'.$permintaan[0]->id_permintaan?>">
             <div class="form-group row">
                 <label for="staticEmail" class="col-sm-2 col-form-label">Pasar</label>
                 <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="Pasar Senen sampe Jumat">
+                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="<?php echo $permintaan[0]->nama?>">
                 </div>
             </div>
 
@@ -37,7 +49,7 @@
                 <label for="inputPassword" class="col-sm-2 col-form-label">Status</label>
                 <div class="col-sm-10">
                 <div class="input-group ">
-                <input type="text" readonly class="form-control-plaintext" value="Menunggu Validasi" placeholder="Berat" aria-label="Username" aria-describedby="basic-addon1">
+                <input type="text" readonly class="form-control-plaintext" value="<?php echo $status?>" placeholder="Berat" aria-label="Username" aria-describedby="basic-addon1">
                 </div>
                 </div>
             </div>
@@ -46,7 +58,7 @@
                 <label for="inputPassword" class="col-sm-2 col-form-label">Total Harga Penawaran</label>
                 <div class="col-sm-10">
                 <div class="input-group mb-3">
-                <input type="text" readonly class="form-control-plaintext" placeholder="Harga" value="Rp. 5 Milyar">
+                <input type="text" readonly class="form-control-plaintext" placeholder="Harga" value="Rp. <?php echo number_format($permintaan[0]->total_harga)?>">
                 </div>
                 </div>
             </div>
@@ -62,18 +74,25 @@
                 </tr>
                  </thead>
                 <tbody>
+                <?php 
+                $no = 1;
+                foreach($permintaan as $data){
+                ?>
                   <tr>
-                    <td>1. </td>
-                    <td>Cabe Cabean Tjap Terong</td>
-                    <td>5 Biji</td>
-                    <td>Rp.5.000</td>
+                    <td><?php echo $no++?> </td>
+                    <td><?php echo $data->nama_produk?></td>
+                    <td><?php echo  $data->berat;?> Kg</td>
+                    <td>Rp. <?php echo number_format($data->harga);?></td>
                   </tr>
+              <?php }; ?>
                 </tbody>
               
               </table>
-<br>
-            <button type="submit" class="btn btn-success btn-block"><i class="fas fa-check"></i> &nbsp Validasi</button>
-
+<br>        
+            <?php if ($this->session->userdata('level') == "Manager") {?>
+            <button type="submit" name="validasi" class="btn btn-success btn-block"><i class="fas fa-check"></i> &nbsp Validasi</button><hr>
+            <button type="submit" name="tolak" class="btn btn-danger btn-block"><i class="fas fa-times"></i> &nbsp Tolak</button>
+            <?php };?>
             </form>
 
           </section>

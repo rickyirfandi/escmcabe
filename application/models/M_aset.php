@@ -13,11 +13,11 @@ class M_aset extends CI_Model {
 		public function getdataakun($id_akun)
 	{
 		$this->db->where('id_akun', $id_akun);
-		return $this->db->get('tbl_akun')->result_array()[0];
+		return $this->db->get('tbl_akun')->row();
 	}
 
-		public function updateakunpendaftar($data){
-		$this->db->where('id_akun', $data['id_akun']);
+		public function updateakunpendaftar($data, $id){
+		$this->db->where('id_akun', $id);
 		return $this->db->update('tbl_akun', $data);
 	}
 

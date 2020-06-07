@@ -10,7 +10,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Riwayat Permintaan</li>
+              <li class="breadcrumb-item active">Permintaan</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -27,7 +27,7 @@
         <div class="container-fluid">
           <div class="card">
             <div class="card-header">
-            Riwayat Permintaan
+            Permintaan
             <div class="row">
           <div class="col-sm-6">
           </div><!-- /.col -->
@@ -49,15 +49,25 @@
                 </tr>
                  </thead>
                 <tbody>
+                <?php 
+                $no = 1;
+                //print_r($permintaan);
+                foreach($permintaan as $data){
+                ?>
                   <tr>
-                    <td>1. </td>
-                    <td>Pasar Senin sampe Jumat </td>
-                    <td>Rp. 5 Milyar </td>
-                    <td>Menunggu Validasi</td>
+                    <td><?php echo $no++; ?></td>
+                    <td><?php echo $data->nama; ?> </td>
+                    <td><?php echo 'Rp.'.number_format($data->total_harga); ?> </td>
+                    <td><?php
+                    if($data->status_per == "2"){
+                        echo "Sedang Diproses";
+                    }
+                    ?> </td>
                     <td>
-                     <a href="<?php echo base_url('permintaan/detail')?>"><button type="button" class="btn btn-icon waves-effect waves-light btn-primary"> <i class="fas fa-search"></i> &nbsp Detail</button></a>
+                     <a href="<?php echo base_url('permintaan/detail/').$data->id_per?>"><button type="button" class="btn btn-icon waves-effect waves-light btn-primary btn-block"> <i class="fas fa-search"></i> &nbsp Detail</button></a>
                     </td>
                   </tr>
+                <?php };?>
                 </tbody>
               
               </table>

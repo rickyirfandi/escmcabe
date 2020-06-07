@@ -48,15 +48,19 @@
                 </tr>
                  </thead>
                 <tbody>
+                <?php
+                $no = 1;
+                 foreach($produk as $data){
+                 ?>
                   <tr>
-                    <td>1</td>
-                    <td>Cabe Polkadot</td>
-                    <td><a href="<?php echo site_url().'produk/edit' ?>"><button type="button" class="btn btn-icon waves-effect waves-light btn-primary"> <i class="fas fa-edit"></i> Edit</button></a>
-                    <a href="#"><button type="button" class="btn btn-icon waves-effect waves-light btn-danger"> <i class="fas fa-times"></i> Hapus</button></a>
+                    <td><?php echo $no++; ?></td>
+                    <td><?php echo $data->nama_produk; ?></td>
+                    <td><a href="<?php echo site_url().'produk/edit/'.$data->id_produk ?>"><button type="button" class="btn btn-icon waves-effect waves-light btn-primary"> <i class="fas fa-edit"></i> Edit</button></a>
+                    <a href="<?php echo site_url().'produk/delete/'.$data->id_produk ?>"><button type="button" class="btn btn-icon waves-effect waves-light btn-danger"> <i class="fas fa-times"></i> Hapus</button></a>
                     </td>
                   </tr>
+                  <?php } ?>
                 </tbody>
-              
               </table>
 
       </div>

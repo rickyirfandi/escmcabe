@@ -25,11 +25,11 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-            <form>
+            <form method="post" action="<?php echo base_url().'supplier/kirimPenawaran'?>">
             <div class="form-group row">
                 <label for="staticEmail" class="col-sm-2 col-form-label">Produk </label>
                 <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="Cabe Keriting yg Direbonding KW super">
+                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="<?php echo $penawaran->nama_produk; ?>">
                 </div>
             </div>
 
@@ -37,7 +37,7 @@
                 <label for="inputPassword" class="col-sm-2 col-form-label">Jumlah Permintaan</label>
                 <div class="col-sm-10">
                 <div class="input-group ">
-                <input type="text" readonly class="form-control-plaintext" value="5 Gram" placeholder="Berat" aria-label="Username" aria-describedby="basic-addon1">
+                <input type="text" readonly class="form-control-plaintext" value="<?php echo $penawaran->berat.' Kg'; ?>" placeholder="Berat" aria-label="Username" aria-describedby="basic-addon1">
                 </div>
                 </div>
             </div>
@@ -46,7 +46,8 @@
                 <label for="inputPassword" class="col-sm-2 col-form-label">Harga Penawaran</label>
                 <div class="col-sm-10">
                 <div class="input-group mb-3">
-                <input type="text" readonly class="form-control-plaintext" placeholder="Harga" value="Rp. 5 Milyar">
+                <input type="text" readonly class="form-control-plaintext" placeholder="Harga" value="<?php echo 'Rp. '.$penawaran->harga; ?>">
+                <input type="text" name="id_produksi" hidden class="form-control-plaintext"  value="<?php echo $penawaran->id_produksi; ?>">
                 </div>
                 </div>
             </div>

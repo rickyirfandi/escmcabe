@@ -45,7 +45,13 @@
   $(function () {
     $("#example1").DataTable({
       "responsive": true,
-      "autoWidth": false,
+      "autoWidth": false,      
+      "paging": true,
+      "lengthChange": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": true,
+      "responsive": true,
     });
     $('#example2').DataTable({
       "paging": true,

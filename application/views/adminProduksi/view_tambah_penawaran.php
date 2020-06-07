@@ -25,11 +25,18 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-            <form>
+            <form method="post" action="<?php echo site_url('penawaran/tambahPenawaran') ?>">
             <div class="form-group row">
                 <label for="staticEmail" class="col-sm-2 col-form-label">Produk </label>
                 <div class="col-sm-10">
-                <input type="text" class="form-control" id="staticEmail">
+                <select class="form-control" name="id_produk" required>
+                  <option value="">Pilih Produk</option>
+                  <?php 
+                  foreach($produk as $list){
+                    echo '<option value="'.$list->id_produk.'">'.$list->nama_produk.'</option>';
+                  }
+                  ?>
+                </select>
                 </div>
             </div>
             <div class="form-group row">
@@ -39,7 +46,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">Rp.</span>
                 </div>
-                <input type="text" class="form-control" placeholder="Harga" aria-label="Username" aria-describedby="basic-addon1">
+                <input type="text" class="form-control" placeholder="Harga" name="harga" aria-describedby="basic-addon1">
                 </div>
                 </div>
             </div>
@@ -48,7 +55,7 @@
                 <label for="inputPassword" class="col-sm-2 col-form-label">Jumlah Permintaan</label>
                 <div class="col-sm-10">
                 <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Berat" aria-label="Username" aria-describedby="basic-addon1">
+                <input type="text" class="form-control" placeholder="Berat" name="berat" aria-describedby="basic-addon1">
                 <div class="input-group-append">
                     <span class="input-group-text">Kg</span>
                 </div>

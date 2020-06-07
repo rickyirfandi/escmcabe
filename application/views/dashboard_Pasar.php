@@ -95,11 +95,16 @@
                 </tr>
                  </thead>
                 <tbody>
+                <?php 
+                $no = 1;
+                foreach($produk as $data){
+                ?>
                   <tr>
-                    <td>1. </td>
-                    <td>Cabe Keriting yg Direbonding KW super </td>
-                    <td><a href="<?php echo base_url('pasar/product')?>"><button type="button" class="btn btn-icon waves-effect waves-light btn-success"> <i class="fas fa-shopping-basket"></i> Masukkan Ke Keranjang</button></a></td>
+                    <td><?php echo $no++; ?></td>
+                    <td><?php echo $data->nama_produk; ?></td>
+                    <td><a href="<?php echo base_url('pasar/product/'.$data->id_produk)?>"><button type="button" class="btn btn-icon waves-effect waves-light btn-success"> <i class="fas fa-shopping-basket"></i> Masukkan Ke Keranjang</button></a></td>
                   </tr>
+                <?php } ?>
                 </tbody>
               
               </table>

@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class M_aset extends CI_Model {
+class M_produk extends CI_Model {
 
 	public $variable;
 
@@ -10,10 +10,32 @@ class M_aset extends CI_Model {
 		
 	}
 
+	public function getAll(){
+		return $this->db->get('tbl_produk')->result();
+	}
+
+	public function getById($id){
+		$this->db->where('id_produk', $id);
+		return $this->db->get('tbl_produk')->row();
+	}
+
+	public function insert($data){
+		return $this->db->insert('tbl_produk', $data);
+	}
+
+	public function update($id, $data){
+		$this->db->where('id_produk', $id);
+		return $this->db->update('tbl_produk', $data);
+	}
+
+	public function delete($id){
+		$this->db->where('id_produk', $id);
+		return $this->db->delete('tbl_produk');
+	}
 
 
 
 	}
 
-/* End of file M_aset.php */
-/* Location: ./application/models/M_aset.php */
+/* End of file M_produk.php */
+/* Location: ./application/models/M_produk.php */

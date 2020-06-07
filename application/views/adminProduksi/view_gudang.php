@@ -46,7 +46,7 @@
                 <tbody>
                   <tr>
                     <td>1. </td>
-                    <td>Gudang Tamanan 1 </td>
+                    <td><?php print_r($gudang)?> </td>
                     <td>10 Kg</td>
                     <td>100Kg</td>
                   </tr>

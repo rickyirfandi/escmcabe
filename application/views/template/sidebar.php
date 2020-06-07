@@ -197,6 +197,12 @@
                 </a>
               </li>
               <li class="nav-item">
+                <a href="<?php echo site_url().'penawaran/terima' ?>" class="nav-link <?php if($link1=="penawaran" && $link2=="terima"){echo "active";};?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Terima Barang</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="<?php echo site_url().'penawaran/riwayat' ?>" class="nav-link <?php if($link1=="penawaran" && $link2=="riwayat"){echo "active";};?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Riwayat Penawaran</p>

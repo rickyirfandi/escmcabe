@@ -49,13 +49,18 @@
                 </tr>
                  </thead>
                 <tbody>
+                <?php 
+                $no = 1;
+                foreach($riwayat as $data){
+                ?>
                   <tr>
-                    <td>1. </td>
-                    <td>Cabe Keriting yg Direbonding KW super </td>
-                    <td>5 Gram </td>
-                    <td>Rp. 5 Milyar </td>
-                    <td>Masih OTW Gan</td>
+                    <td><?php echo $no++; ?></td>
+                    <td><?php echo $data->nama_produk; ?></td>
+                    <td><?php echo $data->berat; ?> Kg </td>
+                    <td>Rp. <?php echo $data->harga; ?> </td>
+                    <td><?php if(($data->status_p)==1){ echo "Dikirim"; }else{ echo "Diterima"; } ?></td>
                   </tr>
+                <?php } ?>
                 </tbody>
               
               </table>
