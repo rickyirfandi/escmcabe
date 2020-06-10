@@ -85,12 +85,9 @@ class Auth extends CI_Controller
 		$data['username'] = $this->input->post('username', true);
 		$data['alamat'] = $this->input->post('alamat', true);
 		$data['no_hp'] = $this->input->post('no_hp', true);
-		$password = $this->input->post('password', true);
-		if ($password == '') {
-			$data['password'] = null;
-		} else {
-			$data['password'] = md5($password);
-		}
+		if ($this->input->post('password')) {
+			$data['password'] = md5($this->input->post('password'));;
+		} 
 		if ($this->M_aset->updateakunpendaftar($data, $id)) {
 			$this->session->set_flashdata('succesinsert', 'berhasil update data');
 		} else {

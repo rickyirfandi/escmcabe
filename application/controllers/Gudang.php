@@ -15,8 +15,14 @@ class Gudang extends CI_Controller
     
 	public function index()
 	{
-		$data['gudang'] = $this->M_supply->getBeratPerGudang('1');
+		$data['gudang'] = $this->M_supply->getAllGudang();
         $this->tampil('adminProduksi/view_gudang', $data);
+	}
+
+	public function lihat($id){
+		$data['nama'] = $this->M_supply->getDataGudang($id);
+		$data['gudang'] = $this->M_supply->getBeratPerGudang($id);
+		$this->tampil('adminProduksi/view_gudang_detail', $data);
 	}
 	
 

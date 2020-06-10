@@ -64,10 +64,38 @@ class M_supply extends CI_Model {
 	}
 
 	public function getBeratPerGudang($id){
-		$this->db->select_sum('berat');
+		$this->db->join('tbl_produk','tbl_produksi.id_produk = tbl_produk.id_produk');
+		$this->db->join('tbl_gudang','tbl_produksi.id_gudang = tbl_gudang.id_gudang');
+		$this->db->select('nama_produk, SUM(berat) as tot_ber, nama_gudang');
+		$this->db->where('tbl_produksi.id_gudang', $id);
+		$this->db->group_by('tbl_produksi.id_produk');
+		return $this->db->get('tbl_produksi')->result();
+	}
+
+	public function getDataGudang($id){
 		$this->db->where('id_gudang', $id);
-		$this->db->group_by('id_produk');
-		return $this->db->get('tbl_produksi')->row();
+		return $this->db->get('tbl_gudang')->row();
+	}
+
+	public function getJumlahPenawaran(){
+		$this->db->where('status_p', 0);
+		return $this->db->get('tbl_produksi')->num_rows();
+	}
+
+	public function getJumlahKirim(){
+		$id = $this->session->userdata('id_akun');
+		$this->db->where('id_supplier', $id);
+		$this->db->where('status_p >', 0);
+		return $this->db->get('tbl_produksi')->num_rows();
+	}
+
+	public function getJumlahPermintaanMasuk(){
+		$this->db->where('status', 2);
+		return $this->db->get('tbl_permintaan')->num_rows();
+	}
+
+	public function getJumlahPenawaranDibuat(){
+		return $this->db->get('tbl_produksi')->num_rows();
 	}
 
 }

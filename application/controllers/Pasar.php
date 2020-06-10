@@ -17,6 +17,9 @@ class Pasar extends CI_Controller
 	public function index()
 	{
 		$data['produk'] = $this->M_produk->getAll();
+		$data['produk_tersedia'] = $this->M_produk->jumlahProduk();
+		$data['keranjang'] = $this->M_permintaan->jumlahKeranjang();
+		$data['transaksi_selesai'] = $this->M_permintaan->jumlahSelesai();
 		$this->tampil('dashboard_Pasar', $data);
 	}
 

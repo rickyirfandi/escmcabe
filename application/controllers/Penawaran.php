@@ -16,6 +16,7 @@ class Penawaran extends CI_Controller
     
 	public function index()
 	{
+
         $this->tampil('adminProduksi/view_penawaran');
     }
 

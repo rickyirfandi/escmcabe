@@ -15,6 +15,8 @@ class Supplier extends CI_Controller
 
 	public function index()
 	{
+		$data['tersedia'] = $this->M_supply->getJumlahPenawaran();
+		$data['terkirim'] = $this->M_supply->getJumlahKirim();
 		$data['penawaran'] = $this->M_supply->getAllPenawaran();
 		$this->tampil('dashboard_Supplier', $data);
 	}

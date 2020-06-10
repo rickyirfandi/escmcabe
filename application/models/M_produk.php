@@ -33,7 +33,9 @@ class M_produk extends CI_Model {
 		return $this->db->delete('tbl_produk');
 	}
 
-
+	public function jumlahProduk(){
+		return $this->db->get('tbl_produk')->num_rows();
+	}
 
 	}
 

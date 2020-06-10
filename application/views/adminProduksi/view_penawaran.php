@@ -49,18 +49,44 @@
                 $no = 1;
                 foreach($penawaran as $data){
                 ?>
-                  <tr>
+                                  <tr>
                     <td><?php echo $no++; ?></td>
                     <td><?php echo $data->nama_produk; ?></td>
                     <form method="post" action="<?php echo site_url('penawaran/updateRiwayat/'.$data->id_produksi) ?>">
-                    <td><input type="number" class="form-control" name="berat" value="<?php echo $data->berat; ?>" required> Kg</td>
-                    <td>Rp. <input type="number" class="form-control" name="harga" value="<?php echo $data->harga; ?>" required></td>
-                    <td><button type="submit" name="update" class="btn btn-icon waves-effect waves-light btn-primary"> <i class="fas fa-save"></i> Save</button>
-                    <button type="submit" name="delete" class="btn btn-icon waves-effect waves-light btn-danger"> <i class="fas fa-times"></i> Hapus</button>
+                    <td>
+                    <div class="col-sm-12">
+                    <div class="input-group mb-3">
+                    <input type="number" class="form-control" <?php  if($data->status_p > 0){ echo "readonly ";}?> name="berat" value="<?php echo $data->berat; ?>" required> 
+                    <div class="input-group-append">
+                        <span class="input-group-text">Kg</span>
+                    </div>
+                    </div>
+                    </div>
+                     </td>
+                    <td>
+                    <div class="col-sm-12">
+                    <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Rp.</span>
+                    </div>
+                    <input type="number" class="form-control" <?php  if($data->status_p > 0){ echo "readonly ";}?> name="harga" value="<?php echo $data->harga; ?>" required>
+                    </div>
+                    </div>
+                    <input hidden type="text" name="id_permintaan" value="<?php echo $data->id_produksi; ?>">
                     </td>
+                    <td>
+                    <div class="row">
+                    <div class="col-sm-6">
+                    <button type="submit" name="update" <?php  if($data->status_p > 0){ echo "disabled ";}?> class="btn btn-icon waves-effect waves-light btn-primary btn-block"> <i class="fas fa-save"></i> </button>
+                    </div>
+                    <div class="col-sm-6">
+                    <button type="submit" name="delete" <?php  if($data->status_p > 0){ echo "disabled ";}?> class="btn btn-icon waves-effect waves-light btn-danger btn-block"> <i class="fas fa-window-close"></i> </button>
+                    </div>
+                    </div>
+                    <?php };?>
+                    </td>
+                    </form>
                   </tr>
-                  </form>
-                <?php } ?>
                 </tbody>
               
               </table>

@@ -7,6 +7,8 @@ class AdminProduksi extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('M_permintaan');
+		$this->load->model('M_supply');
+		$this->load->model('M_produk');
 		
 		if ($this->session->userdata('logged_in') == null) {
 			redirect('Auth', 'refresh');
@@ -15,6 +17,9 @@ class AdminProduksi extends CI_Controller
 
 	public function index()
 	{
+		$data['permintaan_masuk'] = $this->M_supply->getJumlahPermintaanMasuk();
+		$data['penawaran'] = $this->M_supply->getJumlahPenawaranDibuat();
+		$data['tersedia'] = $this->M_produk->jumlahProduk();
 		$data['permintaan'] = $this->M_permintaan->getPermintaanDiproses();
 		$this->tampil('dashboard_AdminProduksi', $data);
 	}

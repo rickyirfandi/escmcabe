@@ -5,7 +5,9 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Stok Gudang</h1>
+            <h1 class="m-0 text-dark">Stok <?php 
+            echo $nama->nama_gudang; ?>
+            </h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -27,7 +29,7 @@
         <div class="container-fluid">
           <div class="card">
             <div class="card-header">
-                Gudang 1
+                Stock
               <div class="container-fluid col-sm-12 text-right m-b-10">
               </div>
             </div>
@@ -37,20 +39,21 @@
                 <thead>
                   <tr>
                   <th>No</th>
-                  <th>Gudang</th>
-                  <th>Kapasitas</th>
-                  <th>Aksi</th>
+                  <th>Nama Barang</th>
+                  <th>Stok</th>
                 </tr>
                  </thead>
                 <tbody>
-                <?php $no=1; foreach($gudang as $data){?>
+                <?php
+                $no=1;
+                foreach($gudang as $data){
+                ?>
                   <tr>
                     <td><?php echo $no++; ?></td>
-                    <td> <?php echo $data->nama_gudang?></td>
-                    <td> <?php echo $data->kapasitas?></td>
-                    <td><a href="<?php echo base_url().'gudang/lihat/'.$data->id_gudang?>"><button type="button" class="btn btn-icon waves-effect waves-light btn-primary btn-block"> <i class="fas fa-search"></i> Detail</button></a></td>
+                    <td><?php echo $data->nama_produk; ?> </td>
+                    <td><?php echo $data->tot_ber; ?> Kg</td>
                   </tr>
-                <?php }?>
+                <?php } ?>
                 </tbody>
               
               </table>

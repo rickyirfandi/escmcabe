@@ -27,7 +27,7 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>5</h3>
+                <h3><?php echo $tersedia?></h3>
 
                 <p>Penawaran Tersedia</p>
               </div>
@@ -43,7 +43,7 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>3</h3>
+                <h3><?php echo $terkirim?></h3>
 
                 <p>Barang Terkirim</p>
               </div>

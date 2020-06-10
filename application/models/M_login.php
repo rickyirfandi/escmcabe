@@ -22,6 +22,7 @@ class M_login extends CI_Model {
                 $sess_data['id_akun'] = $qad->id_akun;
                 //$sess_data['ktp'] = $qad->ktp;
                 $sess_data['username'] = $qad->username;
+                $sess_data['nama'] = $qad->nama;
                 $sess_data['status'] = $qad->status;
                 $sess_data['level'] = $qad->level;
                 $this->session->set_userdata($sess_data);

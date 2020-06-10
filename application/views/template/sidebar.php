@@ -20,7 +20,7 @@
           <img src="<?php echo base_url('assets/dist/img/user2-160x160.jpg')?>" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="<?php echo site_url('Auth/Profile') ?>" class="d-block"> <p><?php echo $this->session->userdata('username'); ?></p></a>
+          <a href="<?php echo site_url('Auth/Profile') ?>" class="d-block"> <p><?php echo $this->session->userdata('nama'); ?></p></a>
         
         </div>
       </div>

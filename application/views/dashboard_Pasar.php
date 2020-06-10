@@ -27,7 +27,7 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>10</h3>
+                <h3><?php echo $produk_tersedia?></h3>
 
                 <p>Produk Tersedia</p>
               </div>
@@ -42,7 +42,7 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>0<sup style="font-size: 20px"></sup></h3>
+                <h3><?php echo $keranjang?><sup style="font-size: 20px"></sup></h3>
 
                 <p>Barang Di keranjang</p>
               </div>
@@ -57,7 +57,7 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>5</h3>
+                <h3><?php echo $transaksi_selesai;?></h3>
 
                 <p>Transaksi Selesai</p>
               </div>

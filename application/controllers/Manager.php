@@ -16,6 +16,9 @@ class Manager extends CI_Controller
 
 	public function index()
 	{
+		$data['permintaan_masuk'] = $this->M_permintaan->getJumlahAllPermintaan();
+		$data['permintaan_selesai'] = $this->M_permintaan->getJumlahAllSelesai();
+		$data['dikirim'] = $this->M_permintaan->getJumlahAllKirim();
 		$data['permintaan'] = $this->M_permintaan->getPermintaanValidasi();
 		$this->tampil('dashboard_Manager', $data);
 	}

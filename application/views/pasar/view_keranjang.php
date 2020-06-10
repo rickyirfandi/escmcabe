@@ -41,8 +41,9 @@
                   <tr>
                   <th>No</th>
                   <th>Produk</th>
+                  <th>Berat</th>
+                  <th>Harga/Kg</th>
                   <th>Jumlah</th>
-                  <th>Harga</th>
                   <th>Aksi</th>
                 </tr>
                  </thead>
@@ -77,6 +78,20 @@
                     
                     <input hidden type="text" name="id_permintaan" value="<?php echo $data->id_permintaan; ?>">
                     </td>
+
+                    <td>
+                    <div class="col-sm-12">
+                    <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Rp.</span>
+                    </div>
+                    <input type="number" class="form-control" name="harga" value="<?php 
+                        $subtotal = $data->harga * $data->berat;
+                        echo $subtotal; ?>">
+                    </div>
+                    </div>
+                    </td>
+
                     <td>
                     <div class="row">
                     <div class="col-sm-6">

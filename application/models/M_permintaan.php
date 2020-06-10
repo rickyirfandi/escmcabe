@@ -53,7 +53,7 @@ class M_permintaan extends CI_Model {
         $this->db->where('tbl_permintaan.status', '1');
         return $this->db->get('tbl_permintaan')->result();
     } 
-    
+
     public function getAllPermintaan(){
         $this->db->join('tbl_akun','tbl_permintaan.id_pasar = tbl_akun.id_akun');
         $this->db->select('tbl_permintaan.status as status_per, biaya_pengiriman, total_harga, tanggal, nama, tbl_permintaan.id_permintaan as id_per');
@@ -120,6 +120,36 @@ class M_permintaan extends CI_Model {
         $this->db->delete('tbl_permintaan');
         $this->db->where('id_permintaan', $id);
         $this->db->delete('tbl_permintaan_detail');
+    }
+
+    public function jumlahKeranjang(){
+        $id = $this->session->userdata('id_akun');
+        $this->db->join('tbl_permintaan', 'tbl_permintaan_detail.id_permintaan = tbl_permintaan.id_permintaan');
+        $this->db->where('id_pasar', $id);
+        $this->db->where('status', 0);
+        return $this->db->get('tbl_permintaan_detail')->num_rows();
+    }
+
+    public function jumlahSelesai(){
+        $id = $this->session->userdata('id_akun');
+        $this->db->where('id_pasar', $id);
+        $this->db->where('status', 4);
+        return $this->db->get('tbl_permintaan')->num_rows();
+    }
+
+    public function getJumlahAllPermintaan(){
+        $this->db->where('status', 1);
+        return  $this->db->get('tbl_permintaan')->num_rows();
+    }
+
+    public function getJumlahAllKirim(){
+        $this->db->where('status', 3);
+        return  $this->db->get('tbl_permintaan')->num_rows();
+    }
+
+    public function getJumlahAllSelesai(){
+        $this->db->where('status', 4);
+        return  $this->db->get('tbl_permintaan')->num_rows();
     }
 
 }
