@@ -62,12 +62,20 @@ class M_permintaan extends CI_Model {
         return $this->db->get('tbl_permintaan')->result();
     } 
     
+    public function getPermintaanDistri(){
+        $this->db->join('tbl_akun','tbl_permintaan.id_pasar = tbl_akun.id_akun');
+        $this->db->select('tbl_permintaan.status as status_per, biaya_pengiriman, total_harga, tanggal, nama, tbl_permintaan.id_permintaan as id_per');
+        $this->db->where('tbl_permintaan.status', '3');
+        return $this->db->get('tbl_permintaan')->result();
+    } 
+
     public function getPermintaanDiproses(){
         $this->db->join('tbl_akun','tbl_permintaan.id_pasar = tbl_akun.id_akun');
         $this->db->select('tbl_permintaan.status as status_per, biaya_pengiriman, total_harga, tanggal, nama, tbl_permintaan.id_permintaan as id_per');
         $this->db->where('tbl_permintaan.status', '2');
         return $this->db->get('tbl_permintaan')->result();
     } 
+
 
     public function getPermintaanDetail($id){
         $this->db->join('tbl_permintaan', 'tbl_permintaan_detail.id_permintaan = tbl_permintaan.id_permintaan');

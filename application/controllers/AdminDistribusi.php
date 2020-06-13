@@ -1,6 +1,6 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Cdashboard_AdminDistribusi extends CI_Controller
+class AdminDistribusi extends CI_Controller
 {
 
 	public function __construct()
@@ -10,12 +10,14 @@ class Cdashboard_AdminDistribusi extends CI_Controller
 		if ($this->session->userdata('logged_in') == null) {
 			redirect('Auth', 'refresh');
 		}
+		$this->load->model('M_permintaan');
 	}
 
 	public function index()
 	{
-
-		$this->tampil('dashboard_AdminDistribusi');
+		$data['jumlah'] = $this->M_permintaan->getJumlahAllKirim();
+		$data['permintaan'] = $this->M_permintaan->getPermintaanDistri();
+		$this->tampil('dashboard_AdminDistribusi', $data);
 	}
 
 	private function accessrules($m, $t, $p, $f)

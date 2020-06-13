@@ -7,7 +7,10 @@ if($code == "1"){
 if($code == "2"){
   $status = "Sedang Diproses";
 }
-if($code == "1"){
+if($code == "3"){
+  $status = "Proses Pengiriman";
+}
+if($code == "9"){
   $status = "Ditolak";
 }
 ?>
@@ -94,6 +97,13 @@ if($code == "1"){
             <button type="submit" name="tolak" class="btn btn-danger btn-block"><i class="fas fa-times"></i> &nbsp Tolak</button>
             <?php };?>
             </form>
+            <?php 
+            //iki tombol ndek detail admin produksi lek di klik update status permintaan dari 2 ng 3, yopo berarti
+            if(($code == "2")&&($this->session->userdata('level') == "Admin Produksi")){?>
+            <form method="POST" action="<?php echo base_url().'permintaan/nextValidate/'.$permintaan[0]->id_permintaan?>">
+            <button type="submit" name="validasi" class="btn btn-success btn-block"><i class="fas fa-check"></i> &nbsp Proses Pengiriman</button><hr>
+           </form>
+           <?php };?>
 
           </section>
           <!-- right col -->

@@ -59,9 +59,21 @@
                     <td><?php echo $data->nama; ?> </td>
                     <td><?php echo 'Rp.'.number_format($data->total_harga); ?> </td>
                     <td><?php
-                    if($data->status_per == "2"){
-                        echo "Sedang Diproses";
+                    $code = $data->status_per;
+                    $status = "";
+                    if($code == "1"){
+                      $status = "Menunggu Validasi";
                     }
+                    if($code == "2"){
+                      $status = "Sedang Diproses";
+                    }
+                    if($code == "3"){
+                      $status = "Proses Pengiriman";
+                    }
+                    if($code == "9"){
+                      $status = "Ditolak";
+                    }
+                    echo $status;
                     ?> </td>
                     <td>
                      <a href="<?php echo base_url('permintaan/detail/').$data->id_per?>"><button type="button" class="btn btn-icon waves-effect waves-light btn-primary btn-block"> <i class="fas fa-search"></i> &nbsp Detail</button></a>

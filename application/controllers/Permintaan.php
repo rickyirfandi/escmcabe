@@ -40,6 +40,12 @@ class Permintaan extends CI_Controller
         redirect('Manager', 'refresh');
     }
 
+    public function nextValidate($id){
+        $data = array('status' => '3');
+        $this->M_permintaan->update($id, $data);
+        redirect('adminProduksi', 'refresh');
+    }
+
     public function tervalidasi()
 	{
         $data['permintaan'] = $this->M_permintaan->getPermintaanDiproses();
