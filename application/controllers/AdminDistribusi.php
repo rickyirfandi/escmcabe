@@ -15,6 +15,7 @@ class AdminDistribusi extends CI_Controller
 
 	public function index()
 	{
+		$data['produk'] = $this->M_permintaan->getJumlahAllProduk();
 		$data['jumlah'] = $this->M_permintaan->getJumlahAllKirim();
 		$data['permintaan'] = $this->M_permintaan->getPermintaanDistri();
 		$this->tampil('dashboard_AdminDistribusi', $data);

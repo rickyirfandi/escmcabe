@@ -3,12 +3,27 @@
 class M_pengiriman extends CI_Model {
 
 	public $variable;
+	
+
 
 	public function __construct()
 	{
 		parent::__construct();
 		
 	}
+
+
+	public function get_pasar(){
+		$this->db->join('tbl_akun','tbl_permintaan.id_pasar = tbl_akun.id_akun');
+		$this->db->where('tbl_permintaan.status', 3);
+		return $this->db->get('tbl_permintaan')->result();
+	}
+
+	public function get_gudang(){
+		//iki returne id ambek jeneng gudang yo, d
+		return $this->db->get('tbl_gudang')->result();
+	}
+
 	public function get_all_jadwal_pengiriman()
 	{
 		$query = "select * from tbl_pengiriman";

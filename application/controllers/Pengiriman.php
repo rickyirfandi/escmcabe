@@ -12,6 +12,18 @@ class Pengiriman extends CI_Controller
 			redirect('Auth', 'refresh');
 		}
 	}
+	/**
+	 * Kabari via WA nek mari, aku ytan soal e
+	 * wes coba maneh
+	 */
+
+	public function Biaya(){
+		$data['pasar'] = $this->M_pengiriman->get_pasar();
+		$data['gudang'] = $this->M_pengiriman->get_gudang();
+
+		$this->tampil('adminDistribusi/view_cost', $data);
+	}
+
 	public function index()
 	{
         redirect('pengiriman/jadwal', 'refresh');

@@ -13,6 +13,7 @@
               <li class="breadcrumb-item active">Dashboard Admin Distribusi</li>
             </ol>
           </div><!-- /.col -->
+      
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
@@ -23,12 +24,26 @@
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
-          <div class="col-lg-12 col-6">
+          <div class="col-lg-6 col-6">
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
                 <h3><?php echo $jumlah?></h3>
                 <p>Permintaan Siap Dikirim</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-bag"></i>
+              </div>
+              <a href="#" class="small-box-footer">Lihat Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3><?php echo $produk?></h3>
+                <p>Jenis Barang</p>
               </div>
               <div class="icon">
                 <i class="ion ion-bag"></i>
@@ -92,6 +107,10 @@
               </table>
 
       </div>
+      
+            <div class="card-header">
+            <a href="<?php echo site_url('') ?>"><button type="button" class="btn btn-icon waves-effect waves-light btn-success btn-block"> <i class="fas fa-paper-plane"></i> &nbsp Optimasi Pengiriman</button></a>
+            </div>
         <!-- /.row (main row) -->
       </div><!-- /.container-fluid -->
     </section>

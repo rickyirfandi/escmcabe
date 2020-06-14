@@ -155,6 +155,13 @@ class M_permintaan extends CI_Model {
         return  $this->db->get('tbl_permintaan')->num_rows();
     }
 
+    public function getJumlahAllProduk(){
+        $this->db->join('tbl_permintaan','tbl_permintaan_detail.id_permintaan = tbl_permintaan.id_permintaan');
+        $this->db->where('status', 3);
+        $this->db->group_by('tbl_permintaan_detail.id_produk');
+        return  $this->db->get('tbl_permintaan_detail')->num_rows();
+    }
+
     public function getJumlahAllSelesai(){
         $this->db->where('status', 4);
         return  $this->db->get('tbl_permintaan')->num_rows();
