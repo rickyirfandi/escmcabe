@@ -72,6 +72,15 @@ class M_supply extends CI_Model {
 		return $this->db->get('tbl_produksi')->result();
 	}
 
+	public function getStokBarangTiapGudang($id_gudang,$id_produk){
+        $this->db->select_sum('berat');
+        $this->db->where('status_p', 2);
+		$this->db->where('id_produk', $id_produk);
+		$this->db->where('id_gudang', $id_gudang);
+        //$this->db->group_by('tbl_permintaan_detail.id_produk');
+        return  $this->db->get('tbl_produksi')->row();
+    }
+
 	public function getDataGudang($id){
 		$this->db->where('id_gudang', $id);
 		return $this->db->get('tbl_gudang')->row();

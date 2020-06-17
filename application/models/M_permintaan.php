@@ -161,6 +161,23 @@ class M_permintaan extends CI_Model {
         $this->db->group_by('tbl_permintaan_detail.id_produk');
         return  $this->db->get('tbl_permintaan_detail')->num_rows();
     }
+    
+    public function getDetailPermintaan(){
+        $this->db->join('tbl_permintaan','tbl_permintaan_detail.id_permintaan = tbl_permintaan.id_permintaan');
+        $this->db->where('status', 3);
+        $this->db->group_by('tbl_permintaan_detail.id_produk');
+        return  $this->db->get('tbl_permintaan_detail')->result();
+    }
+
+    public function getJumlahBeratPermintaan($id_pasar, $id_produk){
+        $this->db->join('tbl_permintaan','tbl_permintaan_detail.id_permintaan = tbl_permintaan.id_permintaan');
+        $this->db->select_sum('tbl_permintaan_detail.berat');
+        $this->db->where('id_pasar', $id_pasar);
+        $this->db->where('status', 3);
+        $this->db->where('id_produk', $id_produk);
+        $this->db->group_by('tbl_permintaan_detail.id_produk');
+        return  $this->db->get('tbl_permintaan_detail')->row();
+    }
 
     public function getJumlahAllSelesai(){
         $this->db->where('status', 4);

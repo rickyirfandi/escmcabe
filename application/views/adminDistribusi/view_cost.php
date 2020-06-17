@@ -20,6 +20,7 @@
     <!-- /.content-header -->
 
     <!-- Main content -->
+    <form method="post" action="<?php echo base_url('pengiriman/optimasi'); ?>">
     <section class="content">
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
@@ -46,7 +47,7 @@
                 </tr>
                  </thead>
                 <tbody>
-
+                
                 <?php
                 $number = 0;
                 foreach ($gudang as $gd){
@@ -60,7 +61,9 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">Rp.</span>
                     </div>
-                    <input type="number" class="form-control" name="cost<?php echo $number++?>">
+
+                    <input type="number" class="form-control" required name="cost<?php echo $number?>" id="cost<?php echo $number++?>"/>
+  
                     </div>
                     </div>
                     </td>
@@ -70,9 +73,10 @@
                     echo "</tr>";
                 }
                 ?>
-
                 </tbody>
-              
+                <div>
+                <input name="length" type="hidden" value="<?php echo $number; ?>" />
+                </div>
               </table>
 
       </div>
@@ -80,10 +84,10 @@
       </div><!-- /.container-fluid -->
       <div class="card">
             <div class="card-header">
-            <a href="<?php echo site_url('pasar/kirimKeranjang') ?>"><button type="button" class="btn btn-icon waves-effect waves-light btn-success btn-block"> <i class="fas fa-shopping-basket"></i> &nbsp Kirim Permintaan</button></a>
+            <button type="submit" class="btn btn-icon waves-effect waves-light btn-success btn-block"> <i class="fas fa-shopping-basket"></i> &nbsp Kirim Permintaan</button>
             </div></div>
     </section>
-    
+    </form>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
