@@ -114,28 +114,35 @@ class Pengiriman extends CI_Controller
 		$penalty_result = array();
 
 		//CREATE ARRAY FOR GET PENALTY COST HORIZONTAL
-		$number = 0;
 		for($x = 0; $x < count($gudang) ; $x++){
 			$row = array();
-			for($y = 0; $y < count($pasar) ; $y++){
-				//if(permintaan!=0 && kapasitas gudang !-0)
-				array_push($row, $cost[$x][$y]);
+			//kapasitas gudang !-0)
+			if($hasil[$x][count($pasar)] !== "0"){
+				for($y = 0; $y < count($pasar) ; $y++){
+					array_push($row, $cost[$x][$y]);
+				}
+				//ASSIGN VALUE PENALTY TO COST ARRAY
+				$cost[$x][count($pasar)] = $this->getPenaltyCost($row);
+			} else {
+				$cost[$x][count($pasar)] = "X"; // KALAU KAPASITAS GUDANGNYA 0, NILAI PENALTY KASIH X
 			}
-			//ASSIGN VALUE PENALTY TO COST ARRAY
-			$cost[$x][count($pasar)] = $this->getPenaltyCost($row);
 			array_push($penalty_result, $cost[$x][count($pasar)]);
 		}
 
 		//CREATE ARRAY FOR GET PENALTY COST VERTICAL
-		$number = 0;
 		for($x = 0; $x < count($pasar) ; $x++){
 			$column = array();
-			for($y = 0; $y < count($gudang) ; $y++){
-				//if(permintaan!=0 && kapasitas gudang !-0)
-				array_push($column, $cost[$y][$x]);
+			//if(permintaan!=0 )
+			if($hasil[count($gudang)][$x] !== "0"){
+				for($y = 0; $y < count($gudang) ; $y++){
+					array_push($column, $cost[$y][$x]);
+				}
+				//ASSIGN VALUE PENALTY TO COST ARRAY
+				$cost[count($gudang)][$x] = $this->getPenaltyCost($column);
+			} else {
+				$cost[count($gudang)][$x] = "X";// KALAU PERMINTAANNYA SDH 0, NILAI PENALTY KASIH X
 			}
-			//ASSIGN VALUE PENALTY TO COST ARRAY
-			$cost[count($gudang)][$x] = $this->getPenaltyCost($column);
+
 			array_push($penalty_result, $cost[count($gudang)][$x]);
 		}
 
@@ -193,10 +200,18 @@ class Pengiriman extends CI_Controller
 				$found = true;
 
 				//KURANGI KAPASITAS DAN PERMINTAAN
-				//if permintaan > kapasitas
-				// kapasitas gudang langsung 0
-				// permintaan - kapasitas Gudang
-				//loop
+				echo "<br>permintaannya ".$permintaan[$x];
+				echo "<br>stoknya ".$kapasitas[$x];
+				if($permintaan[$x] >= $kapasitas[$x]){
+					$hasil[count($gudang)][$this->getSmallestIndex($row)] = $permintaan[$x] - $kapasitas[$x]; //PERMINTAAN
+					$hasil[$x][$this->getSmallestIndex($row)] = $kapasitas[$x]; //DIKIRIM
+					$hasil[$x][count($pasar)] = 0; //KAPASITAS
+				} else {
+					$hasil[$x][count($pasar)] = $kapasitas[$x] - $permintaan[$x]; //KAPASITAS
+					$hasil[$x][$this->getSmallestIndex($row)] = $permintaan[$x]; //DIKIRIM
+					$$hasil[count($gudang)][$this->getSmallestIndex($row)] = 0; //PERMINTAAN
+				}
+
 				break;
 			}
 		}
