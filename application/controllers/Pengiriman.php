@@ -28,6 +28,7 @@ class Pengiriman extends CI_Controller
 
 	public function optimasi(){
 		//GET DETAIL PERMINTAAN
+		echo "Jumlah Jenis Cabe : ";
 		$detail = $this->M_permintaan->getDetailPermintaan();
 		$jenis_cabe = array();
 		for($x=0; $x < count($detail); $x++){
@@ -54,14 +55,19 @@ class Pengiriman extends CI_Controller
 		//DEFINE ARRAY COST
 		$cost = array();
 
+		//DEFINE ARRAY HASIL 
+		$hasil = array();
+
 		//ASSIGN COST TO 2D ARRAYS
 		$number = 0;
 		for($x = 0; $x < count($gudang) ; $x++){
 			for($y = 0; $y < count($pasar) ; $y++){
 				$cost[$x][$y] = $input[$number++];
+				$hasil[$x][$y] = 0; // INIT TABLE RESULT WITH 0
 			}
 		}
 
+		//LOOP EACH PRODUK START HERE --------
 		//CURRENT PRODUCT ID LOOP
 		$produk_id = 1;
 		$permintaan = array();
@@ -69,6 +75,7 @@ class Pengiriman extends CI_Controller
 		//ARRAY KAPASITAS GUDANG UNTUK PRODUK SAAT INI
 		$kapasitas = array();	
 		$no = 0;
+		echo "<hr>INIT LOOP FOR CABE ".$produk_id."<br>Stok cabe jenis ".$produk_id."<br><table border='2'><tr><th>Gudang</th><th>Stok Cabe</th></tr>";
 		foreach($gudang as $gd){
 			$kapasitas[$no] = $this->M_supply->getStokBarangTiapGudang($gd->id_gudang, $produk_id);
 			if(is_null($kapasitas[$no])){
@@ -76,12 +83,17 @@ class Pengiriman extends CI_Controller
 			} else {
 				$kapasitas[$no] = $kapasitas[$no]->berat;
 			}
-			echo "<br> ".$gudang[$no]->nama_gudang." punya stok cabe jenis ".$produk_id." sebesar ".$kapasitas[$no];
+			echo "<tr><td>".$gudang[$no]->nama_gudang."</td><td>".$kapasitas[$no]."</td></tr>";
+
+			//ASSIGN KAPASITAS GUDANG TO TABLE HASIL
+			$hasil[$no][count($pasar)] = $kapasitas[$no];
 			$no++; 
 		}
+		echo "</table>";
 
 		//ARRAY PERMINTAAN TIAP PASAR UNTUK PRODUK SAAT INI
 		$no = 0;
+		echo "<br>Permintaan cabe jenis ".$produk_id."<br><table border='2'><tr><th>Pasar</th><th>Jumlah berat</th></tr>";
 		foreach($pasar as $ps){
 			$permintaan[$no] = $this->M_permintaan->getJumlahBeratPermintaan($ps->id_akun,$produk_id);
 			if(is_null($permintaan[$no])){
@@ -89,9 +101,14 @@ class Pengiriman extends CI_Controller
 			} else {
 				$permintaan[$no] = $permintaan[$no]->berat;
 			}
-			echo "<br> ".$ps->nama." butuh cabe jenis ".$produk_id." sebesar ".$permintaan[$no];
+			//echo "<br> ".$ps->nama." butuh cabe jenis ".$produk_id." sebesar ".$permintaan[$no];
+			echo "<tr><td>".$ps->nama."</td><td>".$permintaan[$no]."</td></tr>";
+
+			//ASSIGN PERMINTAAN PASAR TO TABLE HASIL
+			$hasil[count($pasar)][$no] = $permintaan[$no];
 			$no++; 
 		}
+		echo "</table>";
 
 		//ARRAY TO HOLD PENALTY COST FROM HORIZONTAL / VERTICAL
 		$penalty_result = array();
@@ -123,27 +140,35 @@ class Pengiriman extends CI_Controller
 		}
 
 		//PRINT CHECK ARRAY 2D COST
-		echo "<br><hr> Loop <br>";
-		$cost[count($gudang)][count($pasar)] = "X";
+		echo "<br><hr> LOOP FOR OPTIMIZATION <br>Loop";
+		echo "<br>Table Cost<br><table border='2'><tr><th>Gudang</th>";
+		$cost[count($gudang)][count($pasar)] = "X"; // ISI KOLOM KOSONG KANAN BAWAH DENGAN X
 		for($y = 0; $y < count($pasar) ; $y++){
-			echo $pasar[$y]->nama." | ";
+			//echo $pasar[$y]->nama." | ";
+			echo "<th>".$pasar[$y]->nama."</th>";
 		}
-		echo "<br>";
+		echo "<th>Penalty Cost</th></tr>";
+
 		for($x = 0; $x <= count($gudang) ; $x++){
 			if($x != count($gudang) ){
-				echo $gudang[$x]->nama_gudang." ";
+				//echo $gudang[$x]->nama_gudang." ";
+				echo "<tr><td>".$gudang[$x]->nama_gudang."</td>";
+			} else {
+				echo "<tr><td><b>Penalty</b></td>";
 			}
 			for($y = 0; $y <= count($pasar) ; $y++){
-				echo $cost[$x][$y]." | ";
+				//echo $cost[$x][$y]." | ";
+				echo "<td>".$cost[$x][$y]."</td>";
 			}
-			echo "<br>";
+			echo "</tr>";
 		}
+		echo "</table>";
 
 		//PRINT CHECK ARRAY PENALTY RESULTS
-		echo "<br> Nilai Penalty : <br>";
-		foreach($penalty_result as $p){
-			echo " ". $p;
-		}
+		// echo "<br> Nilai Penalty : <br>";
+		// foreach($penalty_result as $p){
+		// 	echo " ". $p;
+		// }
 
 		//GET BIGGEST PENALTY
 		$biggest_penalty = $this->getBiggest($penalty_result);
@@ -199,6 +224,30 @@ class Pengiriman extends CI_Controller
 				}
 			}
 		}
+
+		//PRINT CHECK ARRAY FOR RESULT FROM THIS LOOP
+		echo "<br><br>Table Result<br><table border='2'><tr><th>Gudang</th>";
+		$hasil[count($gudang)][count($pasar)] = "X"; // ISI KOLOM KOSONG KANAN BAWAH DENGAN X
+		for($y = 0; $y < count($pasar) ; $y++){
+			//echo $pasar[$y]->nama." | ";
+			echo "<th>".$pasar[$y]->nama."</th>";
+		}
+		echo "<th>Stok</th></tr>";
+
+		for($x = 0; $x <= count($gudang) ; $x++){
+			if($x != count($gudang) ){
+				//echo $gudang[$x]->nama_gudang." ";
+				echo "<tr><td>".$gudang[$x]->nama_gudang."</td>";
+			} else {
+				echo "<tr><td><b>Permintaan</b></td>";
+			}
+			for($y = 0; $y <= count($pasar) ; $y++){
+				//echo $cost[$x][$y]." | ";
+				echo "<td>".$hasil[$x][$y]."</td>";
+			}
+			echo "</tr>";
+		}
+		echo "</table>";
 
 
 
