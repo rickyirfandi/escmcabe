@@ -69,7 +69,7 @@ class Pengiriman extends CI_Controller
 
 		//LOOP EACH PRODUK START HERE --------
 		//CURRENT PRODUCT ID LOOP
-		$produk_id = 1;
+		$produk_id = 4;
 		$permintaan = array();
 
 		//ARRAY KAPASITAS GUDANG UNTUK PRODUK SAAT INI
@@ -115,8 +115,11 @@ class Pengiriman extends CI_Controller
 
 		//ARRAY TO HOLD PENALTY COST FROM HORIZONTAL / VERTICAL
 		$penalty_result = array();
+		$isTinggalSatuVertical = false;
+		$isTinggalSatuHorizontal = false;
 
 		//CREATE ARRAY FOR GET PENALTY COST HORIZONTAL
+		$jumlahX = 0;
 		for($x = 0; $x < count($gudang) ; $x++){
 			$row = array();
 			//kapasitas gudang !-0)
@@ -129,11 +132,16 @@ class Pengiriman extends CI_Controller
 				$cost[$x][count($pasar)] = $this->getPenaltyCost($row);
 			} else {
 				$cost[$x][count($pasar)] = "X"; // KALAU KAPASITAS GUDANGNYA 0, NILAI PENALTY KASIH X
+				$jumlahX++;
+			}
+			if(count($gudang) - $jumlahX == 1){
+				$isTinggalSatuVertical = true;
 			}
 			array_push($penalty_result, $cost[$x][count($pasar)]);
 		}
 
 		//CREATE ARRAY FOR GET PENALTY COST VERTICAL
+		$jumlahX = 0;
 		for($x = 0; $x < count($pasar) ; $x++){
 			$column = array();
 			//if(permintaan!=0 )
@@ -145,8 +153,11 @@ class Pengiriman extends CI_Controller
 				$cost[count($gudang)][$x] = $this->getPenaltyCost($column);
 			} else {
 				$cost[count($gudang)][$x] = "X";// KALAU PERMINTAANNYA SDH 0, NILAI PENALTY KASIH X
+				$jumlahX++;
 			}
-
+			if(count($pasar) - $jumlahX == 1){
+				$isTinggalSatuHorizontal = true;
+			}
 			array_push($penalty_result, $cost[count($gudang)][$x]);
 		}
 
@@ -182,6 +193,70 @@ class Pengiriman extends CI_Controller
 		// }
 
 		//GET BIGGEST PENALTY
+		if($isTinggalSatuHorizontal){
+			echo "TINGGAL SATU HORIZONTAL";
+
+			//GET LOCATION INDEX OF LAST PENALTY
+			$index = 0;
+			for ($x = 0; $x < count($pasar) ; $x++){
+				if($penalty_result[($x+count($gudang))]!="X"){
+					$index = $x;
+				}
+			}
+
+			//CREATE ARRAY TO GET SMALLEST COST FROM THAT COLUMN
+			$costTerkecil = array();
+			for($x = 0; $x < count($gudang) ; $x++){
+				array_push($costTerkecil, $hasil[$x][$index]);
+			}
+
+			$indexTerkecil = $this->getSmallestIndex($costTerkecil);
+
+			$permintaan = $hasil[count($gudang)][$index];
+			$kapasitas = $hasil[$indexTerkecil][count($pasar)];
+			if($permintaan > 0){
+				if($permintaan > $kapasitas){
+					$hasil[$indexTerkecil][$index] = $kapasitas; //HASIL LANGSUNG TULIS KAPASITAS
+					$hasil[$indexTerkecil][count($pasar)] = 0; // //KAPASITAS LANGSUNG 0
+					$hasil[count($gudang)][$index] = $permintaan - $kapasitas; //SISA PERMINTAAN = PERMINTAAN - KAPASITAS
+				} else {
+					$hasil[$indexTerkecil][$index] = $permintaan; // HASIL = PERMINTAAN
+					$hasil[$indexTerkecil][count($pasar)] = $kapasitas - $permintaan; //SISA KAPASITAS = KAPASITAS - PERMINTAAN
+					$hasil[count($gudang)][$index] = 0; //PERMINTAAN = 0
+				}
+			}
+
+
+		} else if($isTinggalSatuVertical){
+			echo "TINGGAL SATU VERTICAL";
+
+			//GET LOCATION INDEX OF LAST PENALTY 
+			$index = 0;
+			for ($x = 0; $x < count($gudang) ; $x++){
+				if($penalty_result[$x]!="X"){
+					$index = $x;
+				}
+			}
+
+			//LOOPING EACH PASAR KALAU BELUM 0, KURANGI DARI GUDANG TERAKHIR
+			for ($x = 0; $x < count($pasar) ; $x++){
+				$permintaan = $hasil[count($gudang)][$x];
+				$kapasitas = $hasil[$index][count($pasar)];
+				if($permintaan > 0){
+					if($permintaan > $kapasitas){
+						$hasil[$index][$x] = $kapasitas; //HASIL LANGSUNG TULIS KAPASITAS
+						$hasil[$index][count($pasar)] = 0; // //KAPASITAS LANGSUNG 0
+						$hasil[count($gudang)][$x] = $permintaan - $kapasitas; //SISA PERMINTAAN = PERMINTAAN - KAPASITAS
+					} else {
+						$hasil[$index][$x] = $permintaan; // HASIL = PERMINTAAN
+						$hasil[$index][count($pasar)] = $kapasitas - $permintaan; //SISA KAPASITAS = KAPASITAS - PERMINTAAN
+						$hasil[count($gudang)][$x] = 0; //PERMINTAAN = 0
+					}
+				}
+			}
+
+		} else {
+
 		$biggest_penalty = $this->getBiggest($penalty_result);
 		$found = false;
 		echo "<br> Biggest Penalty = ".$biggest_penalty;
@@ -222,7 +297,7 @@ class Pengiriman extends CI_Controller
 				} else {
 					$hasil[$x][count($pasar)] = $kapasitas[$x] - $permintaan[$x]; //KAPASITAS
 					$hasil[$x][$this->getSmallestIndex($row)] = $permintaan[$x]; //DIKIRIM
-					$$hasil[count($gudang)][$this->getSmallestIndex($row)] = 0; //PERMINTAAN
+					$hasil[count($gudang)][$this->getSmallestIndex($row)] = 0; //PERMINTAAN
 				}
 
 				break;
@@ -273,6 +348,8 @@ class Pengiriman extends CI_Controller
 			}
 		}
 
+	} // else if dari is tinggal satu
+
 		//PRINT CHECK ARRAY FOR RESULT FROM THIS LOOP
 		echo "<br><br>Table Result<br><table border='2'><tr><th>Gudang</th>";
 		$hasil[count($gudang)][count($pasar)] = "X"; // ISI KOLOM KOSONG KANAN BAWAH DENGAN X
@@ -302,6 +379,17 @@ class Pengiriman extends CI_Controller
 
 		$LIMIT++;
 		} while ($LIMIT < 3);
+
+
+		//CETAK HASIL AKHIR VOGEL
+		for($x = 0; $x <count($gudang) ; $x++){
+			for($y = 0; $y <count($pasar) ; $y++){
+				if($hasil[$x][$y]!="0"){
+					echo "<br>Mengirim dari ".$gudang[$x]->nama_gudang." menuju pasar ".$pasar[$y]->nama." sebesar ".$hasil[$x][$y]. " Kg dengan cost/kg ".$cost[$x][$y]. " sehinggan total : Rp. ".($cost[$x][$y] * $hasil[$x][$y]);
+				}
+			}
+		}
+
 	}
 
 	//FUNGSI UNTUK MENGECEK APAKAH PERHITUNGAN VOGEL TELAH Selesai
