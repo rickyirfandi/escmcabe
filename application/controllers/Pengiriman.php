@@ -109,6 +109,9 @@ class Pengiriman extends CI_Controller
 			$no++; 
 		}
 		echo "</table>";
+		$LIMIT = 0;
+		// ------------------------------LOOP VOGEL START HERE
+		do {
 
 		//ARRAY TO HOLD PENALTY COST FROM HORIZONTAL / VERTICAL
 		$penalty_result = array();
@@ -117,7 +120,8 @@ class Pengiriman extends CI_Controller
 		for($x = 0; $x < count($gudang) ; $x++){
 			$row = array();
 			//kapasitas gudang !-0)
-			if($hasil[$x][count($pasar)] !== "0"){
+			if($hasil[$x][count($pasar)] != 0){
+				echo " berapa kapasitas gudang ? ".$hasil[$x][count($pasar)];
 				for($y = 0; $y < count($pasar) ; $y++){
 					array_push($row, $cost[$x][$y]);
 				}
@@ -182,8 +186,17 @@ class Pengiriman extends CI_Controller
 		$found = false;
 		echo "<br> Biggest Penalty = ".$biggest_penalty;
 
+		//IF BIGGEST PENALTY = -1, DONE
+		if($biggest_penalty == "-1"){ 
+			//break;
+		};
+
 		//CHECK BIGGEST PENALTY IS ON COLUMN SECTION ?
 		for($x = 0; $x < count($pasar); $x++){
+			//AKALU PINALTY NILAINYA X SKIP
+			if($cost[$x][count($pasar)] == "X"){
+				continue;
+			};
 			echo "<br> check between penalty ".$cost[$x][count($pasar)]." and biggest ".$biggest_penalty;
 			if($cost[$x][count($pasar)] == $biggest_penalty){
 				//CREATE ARRAY FROM ROW
@@ -219,7 +232,11 @@ class Pengiriman extends CI_Controller
 		//CHECK BIGGEST PENALTY IS ON ROW SECTION ?
 		if(!$found){
 			for($x = 0; $x < count($pasar); $x++){
-				echo "<br> check between cost ".$cost[count($pasar)][$X]." and biggest ".$biggest_penalty;
+				//AKALU PINALTY NILAINYA X SKIP
+				if($cost[count($gudang)][$x] == "X"){
+					continue;
+				};
+				echo "<br> check between cost ".$cost[count($gudang)][$x]." and biggest ".$biggest_penalty;
 				if($cost[count($pasar)][$x] == $biggest_penalty){
 					//CREATE ARRAY FROM ROW
 					$column = array(); 
@@ -230,11 +247,27 @@ class Pengiriman extends CI_Controller
 	
 					//GET INDEX OF SMALLEST COST
 					$smallest = $cost[$this->getSmallestIndex($column)][$x];
+					$index = $this->getSmallestIndex($column);
 	
 					echo "<br>Selected = ".$smallest;
 					$found = true;
 	
 					//KURANGI KAPASITAS DAN PERMINTAAN
+					$stok_result = $hasil[$index][count($gudang)];
+					$permintaan_result = $hasil[count($pasar)][$x];
+
+					echo "<br>permintaannya ".$permintaan_result;
+					echo "<br>stoknya ".$stok_result;
+
+					if($permintaan_result >= $stok_result){
+						$hasil[count($pasar)][$x] = $permintaan_result - $stok_result; //PERMINTAAN
+						$hasil[$index][$x] = $stok_result; //DIKIRIM
+						$hasil[$index][count($gudang)] = 0; //KAPASITAS
+					} else {
+						$hasil[$index][count($gudang)] = $stok_result - $permintaan_result; //KAPASITAS
+						$hasil[$index][$x] = $permintaan_result; //DIKIRIM
+						$hasil[count($pasar)][$x] = 0; //PERMINTAAN
+					}
 					break;
 				}
 			}
@@ -264,9 +297,43 @@ class Pengiriman extends CI_Controller
 		}
 		echo "</table>";
 
+		$done = $this->isDone($hasil, $pasar, $gudang);
+		echo "is done? ".$done;
 
+		$LIMIT++;
+		} while ($LIMIT < 3);
+	}
 
+	//FUNGSI UNTUK MENGECEK APAKAH PERHITUNGAN VOGEL TELAH Selesai
+	//INPUT BERUPA ARRAY RESULT
+	public function isDone($array, $pasar ,$gudang){
+		$done = true;
+		//KALAU PERMINTAANNYA MASIH BELUM HABIS BERARTI BELUM SELESAI
+		for($x = 0; $x < count($pasar) ; $x++){
+			if($array[count($gudang)][$x] > 0){ 
+				$done = false;
+			}
+		}
 
+		//WHAT IF PERMINTAANNYA BELUM HABIS KARENA STOK DI GUDANG HABIS SEMUA?
+		if(!$done){
+			$kehabisan_stok = true;
+			for($x = 0; $x < count($gudang) ; $x++){
+				if($array[$x][count($pasar)] > 0){ 
+					$kehabisan_stok  = false;
+				}
+			}
+			if($kehabisan_stok){
+				echo " return true";
+				return true;
+			} else {
+				echo " return false";
+				return false;
+			}
+		}
+
+		echo " return done yg isinya : ".$done;
+		return $done;
 	}
 
 	//FUNGSI UNTUK MENDAPATKAN NILAI INDEX DARI ARRAY TERKECIL
@@ -305,11 +372,16 @@ class Pengiriman extends CI_Controller
 
 	//FUNGSI UNTUK MENDAPATKAN NILAI TERBESAR DARI SEBUAH ARRAYS
 	//INPUT BERUPA ARRAY, RESULT BERUPA VALUE TERBESAR
+	//KALAU PENALTY BERUPA X CONTINUE
 	public function getBiggest($array) {
 		$result = -1;
 		for($x = 0; $x < count($array); $x++){
-			if($array[$x] > $result){
-				$result = $array[$x];
+			if($array[$x]!=="X"){
+				if($array[$x] > $result){
+					$result = $array[$x];
+				} else {
+					continue;
+				}
 			}
 		}
 		return $result;
