@@ -69,7 +69,7 @@ class Pengiriman extends CI_Controller
 
 		//LOOP EACH PRODUK START HERE --------
 		//CURRENT PRODUCT ID LOOP
-		$produk_id = 4;
+		$produk_id = 1;
 		$permintaan = array();
 
 		//ARRAY KAPASITAS GUDANG UNTUK PRODUK SAAT INI
@@ -225,7 +225,11 @@ class Pengiriman extends CI_Controller
 			//CREATE ARRAY TO GET SMALLEST COST FROM THAT COLUMN
 			$costTerkecil = array();
 			for($x = 0; $x < count($gudang) ; $x++){
-				array_push($costTerkecil, $cost[$x][$index]);
+				if($hasil[$x][count($pasar)]=="0"){
+					array_push($costTerkecil, "X");
+				} else {
+					array_push($costTerkecil, $cost[$x][$index]);
+				}
 			}
 
 			$indexTerkecil = $this->getSmallestIndex($costTerkecil);
