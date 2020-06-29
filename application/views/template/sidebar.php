@@ -235,18 +235,11 @@
               <p>
                 Pengiriman
                 <i class="fas fa-angle-left right"></i>
-                <span class="badge badge-info right">6</span>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/layout/top-nav.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Tambah Pengiriman</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                <a href="<?php echo base_url().'pengiriman/status_pengiriman'?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Status Pengiriman</p>
                 </a>
@@ -263,7 +256,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/forms/general.html" class="nav-link">
+                <a href="<?php echo base_url().'laporan/buat'?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Buat Laporan</p>
                 </a>
@@ -271,7 +264,7 @@
               <li class="nav-item">
                 <a href="pages/forms/advanced.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>xx</p>
+                  <p>Laporan</p>
                 </a>
               </li>
             </ul>

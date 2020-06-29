@@ -1,4 +1,3 @@
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -16,7 +15,7 @@
             <div class="card-header">
             <div class="row">
           <div class="col-sm-6">
-          <h1 class="card-title">Pengiriman</h1>
+          <h1 class="card-title">Jadwal Pengiriman</h1>
           </div><!-- /.col -->
         </div><!-- /.row -->
 
@@ -30,25 +29,32 @@
                   <tr>
                   <th>Tanggal</th>
                   <th>Gudang</th>
+                  <th>Tujuan</th>
                   <th>Barang</th>
                   <th>Berat</th>
-                  <th>Terima</th>
+                  <th>Status</th>
                 </tr>
                  </thead>
                 <tbody>
-                <?php foreach($pengiriman as $p){?>
+                <?php foreach($kirim as $p){
+                  $status = "";
+                  if($p->status_pengiriman == "0"){
+                    $status = "Menunggu Validasi";
+                  } else if($p->status_pengiriman == "1"){
+                    $status = "Dikirim";
+                  } else if($p->status_pengiriman == "2"){
+                    $status = "Barang Diterima";
+                  } else if($p->status_pengiriman == "9"){
+                    $status = "Ditolak";
+                  }
+                  ?>
                   <tr>
                     <td><?php echo $p->tanggal_pengiriman; ?></td>
                     <td><?php echo $p->nama_gudang; ?></td>
+                    <td><?php echo $p->nama; ?></td>
                     <td><?php echo $p->nama_produk; ?></td>
                     <td><?php echo $p->berat_pengiriman; ?>Kg</td>
-                    <td class="actions">
-                    <?php if($p->status_pengiriman == "1"){?>
-                    <form method="POST" action="<?php echo site_url('pasar/terima_barang/'.$p->id_pengiriman) ?>">
-                    <button type="submit" name="valid" class="btn btn-icon waves-effect waves-light btn-success"> <i class="fas fa-check-square"></i> &nbsp Terima Barang</button>                                    
-                    </form>
-                    <?php } else {echo "Barang Diterima";}?>
-                </td>
+                    <td><?php echo $status; ?></td>
             </tr>
                 <?php };?>
                 </tbody>

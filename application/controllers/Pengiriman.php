@@ -173,9 +173,12 @@ class Pengiriman extends CI_Controller
 				$cost[count($gudang)][$x] = "X";// KALAU PERMINTAANNYA SDH 0, NILAI PENALTY KASIH X
 				$jumlahX++;
 			}
+
+
 			if(count($pasar) - $jumlahX == 1){
 				$isTinggalSatuHorizontal = true;
 			}
+			echo "push penalty result ".$cost[count($gudang)][$x];
 			array_push($penalty_result, $cost[count($gudang)][$x]);
 		}
 
@@ -216,9 +219,15 @@ class Pengiriman extends CI_Controller
 
 			//GET LOCATION INDEX OF LAST PENALTY
 			$index = 0;
-			for ($x = 0; $x < count($pasar) ; $x++){
+			for ($x = 0; $x < count($gudang) ; $x++){
+				echo "<br> masuk loop for get location index dimana x = ".$x;
+				if($penalty_result[($x+count($gudang))]=="0"){
+					echo "update index via 0 to ".$x;
+					$index = $x;
+				}
 				if($penalty_result[($x+count($gudang))]!="X"){
 					$index = $x;
+					echo "update index via X to ".$x;
 				}
 			}
 
@@ -228,14 +237,19 @@ class Pengiriman extends CI_Controller
 				if($hasil[$x][count($pasar)]=="0"){
 					array_push($costTerkecil, "X");
 				} else {
+					echo " index ".$index;
 					array_push($costTerkecil, $cost[$x][$index]);
 				}
 			}
 
 			$indexTerkecil = $this->getSmallestIndex($costTerkecil);
+			echo "index terkecil ".$indexTerkecil;
 
 			$permintaan = $hasil[count($gudang)][$index];
 			$kapasitas = $hasil[$indexTerkecil][count($pasar)];
+			echo "permintaan position x: ".count($gudang)." y: ".$index;
+			echo "permintaan ".$permintaan;
+			echo "kapasitas ".$kapasitas;
 			if($permintaan > 0){
 				if($permintaan > $kapasitas){
 					$hasil[$indexTerkecil][$index] = $kapasitas; //HASIL LANGSUNG TULIS KAPASITAS
@@ -255,6 +269,9 @@ class Pengiriman extends CI_Controller
 			//GET LOCATION INDEX OF LAST PENALTY 
 			$index = 0;
 			for ($x = 0; $x < count($gudang) ; $x++){
+				if($penalty_result[($x)]=="0"){
+					$index = $x;
+				}
 				if($penalty_result[$x]!="X"){
 					$index = $x;
 				}
@@ -285,7 +302,7 @@ class Pengiriman extends CI_Controller
 
 		//IF BIGGEST PENALTY = -1, DONE
 		if($biggest_penalty == "-1"){ 
-			//break;
+			break;
 		};
 
 		//CHECK BIGGEST PENALTY IS ON COLUMN SECTION ?
@@ -300,14 +317,25 @@ class Pengiriman extends CI_Controller
 				$row = array(); 
 				echo "<br>COLUMN SECTION";
 				for($y = 0; $y < count($pasar); $y++){
+					$permintaan = $hasil[count($gudang)][$y];
+					$kapasitas = $hasil[$x][count($pasar)];
 					//if(permintaan!=0 && kapasitas gudang !-0)
-					//echo "<br>Permintaan untuk array ".$cost[count($gudang)][$y];
-					//echo "<br>kapasitas untuk array ".$cost[$x][count($pasar)];
-					if(($cost[count($gudang)][$y] == "X")||($cost[$x][count($pasar)]=="X")){
+					//echo "<br>Permintaan untuk array ".$permintaan;
+					//echo "<br>kapasitas untuk array ".$kapasitas;
+					// if(($cost[count($gudang)][$y] == "0")){
+					// 	array_push($row, $cost[$x][$y]);
+					// } 
+
+					if(($permintaan == "X")||($kapasitas=="X")){
+						//echo "<br>true penalty bawah".$cost[count($gudang)][$y]." - penalty samping ".$cost[$x][count($pasar)];
 						array_push($row, "X");
+						echo "<br> array push X";
 					} else {
+						//echo "false penalty bawah".$cost[count($gudang)][$y]." - penalty samping ".$cost[$x][count($pasar)];
 						array_push($row, $cost[$x][$y]);
+						echo "<br> array push ".$cost[$x][$y];
 					}
+
 				}
 
 				//GET INDEX OF SMALLEST COST
@@ -321,7 +349,7 @@ class Pengiriman extends CI_Controller
 				$permintaan_result = $hasil[count($gudang)][$index];
 
 				//KURANGI KAPASITAS DAN PERMINTAAN
-				echo "<br>permintaannya ".$permintaan_result;
+				echo "<br>permintaannya ".$permintaan_result ."koordinatnya x: ".count($gudang)." y: ".$index;
 				echo "<br>stoknya ".$stok_result;
 				if($permintaan_result >= $stok_result){
 					$hasil[count($gudang)][$index] = $permintaan_result - $stok_result; //PERMINTAAN
@@ -350,12 +378,14 @@ class Pengiriman extends CI_Controller
 					$column = array(); 
 					echo "<br>ROW SECTION";
 					for($y = 0; $y < count($pasar); $y++){
-						//echo "<br>Permintaan untuk array ".$cost[count($gudang)][$x];
-						//echo "<br>kapasitas untuk array ".$cost[$x][count($pasar)];
-						if(($cost[count($gudang)][$x] == "X")||($cost[$x][count($pasar)]=="X")){
+						echo "<br>Permintaan untuk array ".$hasil[count($gudang)][$y];
+						echo "<br>kapasitas untuk array ".$hasil[$x][count($pasar)];
+						if(($hasil[count($gudang)][$y] == "X")||($hasil[$x][count($pasar)]=="X")){
 							array_push($row, "X");
+							echo "array push X";
 						} else {
 							array_push($column, $cost[$y][$x]);
+							echo "array push ".$cost[$y][$x];
 						}
 						
 						//if(permintaan!=0 && kapasitas gudang !-0)
@@ -419,7 +449,7 @@ class Pengiriman extends CI_Controller
 		$done = $this->isDone($hasil, $pasar, $gudang);
 
 		$LIMIT++;
-		} while (!$done);
+		} while ($LIMIT < 5);
 
 
 		//CETAK HASIL AKHIR VOGEL
@@ -471,7 +501,7 @@ class Pengiriman extends CI_Controller
 		$smallest = 999999;
 
 		for($x = 0; $x < count($array); $x++){
-			echo " array  - ".$array[$x];
+			//echo " get smallest array ".$x." - ".$array[$x];
 			if($array[$x]=="X"){
 				continue;
 			} else{
@@ -536,22 +566,34 @@ class Pengiriman extends CI_Controller
     }
 
     public function jadwal(){
-        $data['datapengiriman'] = $this->M_pengiriman->get_all_jadwal_pengiriman();
+        $data['datapengiriman'] = $this->M_pengiriman->get_all_pengiriman();
         $this->tampil('manager/view_jadwal_pengiriman', $data);
     }
 
     public function validasi(){
-        //$data['datapengiriman'] = $this->M_pengiriman->get_jadwal_pengiriman_belum_validasi();
-        $this->tampil('manager/view_validasi_pengiriman');
+		//$data['datapengiriman'] = $this->M_pengiriman->get_jadwal_pengiriman_belum_validasi();
+		$data['pengiriman'] = $this->M_pengiriman->get_val_pengiriman();
+        $this->tampil('manager/view_validasi_pengiriman', $data);
     }
 
-    public function validasi_pengiriman(){
-        //$id =  $this->uri->segment(3);
-        //$data['action'] = "validasi";
-        //$data['datapengiriman'] = $this->M_pengiriman->get_jadwal_pengiriman_belum_validasi();
-        //$data['detailpengiriman'] = $this->M_pengiriman->get_pengiriman_by_id($id);
-        $this->tampil('manager/view_validasi_pengiriman');
-    }
+    public function validasi_pengiriman($id){
+		if(isset($_POST['valid'])){
+			$data['status_pengiriman'] = 1;
+			$this->M_pengiriman->update_val($id, $data);
+			redirect('pengiriman/validasi');
+		}elseif(isset($_POST['tolak'])){
+			$data['status_pengiriman'] = 9;
+			$this->M_pengiriman->update_val($id, $data);
+			redirect('pengiriman/validasi');
+		}else{
+			echo "<script>alert('Data tidak ditemukan');</script>";
+		}
+	}
+	
+	public function status_pengiriman(){
+		$data['kirim'] = $this->M_pengiriman->get_all_kirim();
+        $this->tampil('adminDistribusi/view_jadwal_pengiriman', $data);
+	}
 
     public function inupdelPengiriman() {
 		$data['set'] = $this->input->post('set');

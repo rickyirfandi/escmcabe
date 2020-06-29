@@ -61,7 +61,43 @@ class M_pengiriman extends CI_Model {
 		$query = "update tbl_pengiriman set status='Sudah Validasi' where id_pengiriman='".$id."'";
 		$hasil = $this->db->query($query)->result();
 		return $hasil; 
-    }
+	}
+	
+	public function get_val_pengiriman(){
+		$this->db->join('tbl_akun','tbl_pengiriman.id_pasar = tbl_akun.id_akun');
+		$this->db->join('tbl_produk','tbl_pengiriman.id_produk = tbl_produk.id_produk');
+		$this->db->join('tbl_gudang','tbl_pengiriman.id_gudang = tbl_gudang.id_gudang');
+		$this->db->where('tbl_pengiriman.status_pengiriman', 0);
+		return $this->db->get('tbl_pengiriman')->result();
+	}
+
+	public function get_all_pengiriman(){
+		$this->db->join('tbl_akun','tbl_pengiriman.id_pasar = tbl_akun.id_akun');
+		$this->db->join('tbl_produk','tbl_pengiriman.id_produk = tbl_produk.id_produk');
+		$this->db->join('tbl_gudang','tbl_pengiriman.id_gudang = tbl_gudang.id_gudang');
+		$this->db->where('tbl_pengiriman.status_pengiriman !=', 0);
+		return $this->db->get('tbl_pengiriman')->result();
+	}
+
+	public function get_all_kirim(){
+		$this->db->join('tbl_akun','tbl_pengiriman.id_pasar = tbl_akun.id_akun');
+		$this->db->join('tbl_produk','tbl_pengiriman.id_produk = tbl_produk.id_produk');
+		$this->db->join('tbl_gudang','tbl_pengiriman.id_gudang = tbl_gudang.id_gudang');
+		return $this->db->get('tbl_pengiriman')->result();
+	}
+
+	public function update_val($id, $data){
+		$this->db->where('id_pengiriman', $id);
+        return $this->db->update('tbl_pengiriman', $data);
+	}
+
+	public function get_pengiriman_pasar($id){
+		$this->db->join('tbl_akun','tbl_pengiriman.id_pasar = tbl_akun.id_akun');
+		$this->db->join('tbl_produk','tbl_pengiriman.id_produk = tbl_produk.id_produk');
+		$this->db->join('tbl_gudang','tbl_pengiriman.id_gudang = tbl_gudang.id_gudang');
+		$this->db->where('tbl_pengiriman.id_pasar', $id);
+        return $this->db->get('tbl_pengiriman')->result();
+	}
     
 	// public function get_admin_nonaktif()
 	// {

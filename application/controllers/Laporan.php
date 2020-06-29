@@ -6,17 +6,24 @@ class Laporan extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('M_pengiriman');
-
 		if ($this->session->userdata('logged_in') == null) {
 			redirect('Auth', 'refresh');
 		}
+		$this->load->model('M_pengiriman');
+		$this->load->model('M_laporan');
     }
     
 	public function index()
 	{
+		
         $this->tampil('manager/view_laporan');
-    }
+	}
+	
+	public function buat()
+	{
+		$data['datalaporan'] = $this->M_laporan->getAll();
+        $this->tampil('adminDistribusi/view_buat_laporan', $data);
+	}
 
     public function detail()
 	{

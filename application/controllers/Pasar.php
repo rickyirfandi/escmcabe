@@ -12,6 +12,7 @@ class Pasar extends CI_Controller
 		}
 		$this->load->model('M_produk');
 		$this->load->model('M_permintaan');
+		$this->load->model('M_pengiriman');
 	}
 
 	public function index()
@@ -138,7 +139,19 @@ class Pasar extends CI_Controller
 	}
 
 	public function pengiriman(){
-		$this->tampil('pasar/view_pengiriman');
+		$id_user = $this->session->userdata('id_akun');
+		$data['pengiriman'] = $this->M_pengiriman->get_pengiriman_pasar($id_user);
+		$this->tampil('pasar/view_pengiriman', $data);
+	}
+
+	public function terima_barang($id){
+		if(isset($_POST['valid'])){
+			$data['status_pengiriman'] = 2;
+			$this->M_pengiriman->update_val($id, $data);
+			redirect('pasar/pengiriman');
+		}else{
+			echo "<script>alert('Data tidak ditemukan');</script>";
+		}
 	}
 
 	private function accessrules($m, $t, $p, $f)
