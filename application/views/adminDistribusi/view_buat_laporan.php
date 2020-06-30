@@ -5,7 +5,6 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Dashboard</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -51,7 +50,6 @@
                 <tbody>
                 <?php 
                 $no = 1;
-                echo "asad";
                 foreach($datalaporan as $data){
                 ?>
                   <tr>
@@ -64,7 +62,7 @@
                     }
                     ?> </td>
                     <td>
-                     <a href="<?php echo base_url('laporan/buat/').$data->id_permintaan?>"><button type="button" class="btn btn-icon waves-effect waves-light btn-primary btn-block"> <i class="fas fa-plus"></i> &nbsp Buat Laporan</button></a>
+                     <a href="<?php echo base_url('laporan/buat_laporan/'.$data->id_permintaan)?>"><button type="button" class="btn btn-icon waves-effect waves-light btn-primary btn-block"> <i class="fas fa-plus"></i> &nbsp Buat Laporan</button></a>
                     </td>
                   </tr>
                 <?php };?>
